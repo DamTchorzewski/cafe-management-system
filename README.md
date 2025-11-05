@@ -147,7 +147,7 @@ CafeControl/
 
 ## 👥 Podział zadań w zespole
 
-### **Damian Tchorzewski 72206**
+### **Damian Tchorzewski**
 - **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub)
     - Utworzenie pełnej struktury katalogów i pustych klas
     - Inicjalizacja repozytorium i README.md

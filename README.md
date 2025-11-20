@@ -33,7 +33,66 @@ Zespół projektowy  – Programowanie w Javie
    ```
 2. Otwórz projekt w IntelliJ IDEA.
 
-3. Uruchom główną klasę Main.java
+3. Uruchom główną klasę `Main.java` (prawy przycisk myszy → Run 'Main.main()')
+
+4. System uruchomi się w konsoli z interaktywnym menu:
+   - Tworzenie nowych zamówień
+   - Przeglądanie menu kawiarni
+   - Historia zamówień
+   - Statystyki sprzedaży
+
+## 📊 Aktualny stan projektu
+
+### ✅ Zaimplementowane funkcjonalności:
+
+#### Moduł Model (`model/`)
+- ✅ **Person** (abstrakcyjna) - baza dla Customer i Employee
+- ✅ **Customer** - zarządzanie klientami z auto-ID
+- ✅ **Employee** - zarządzanie pracownikami z auto-ID
+- ✅ **Product** (abstrakcyjna) - baza dla Drink i Food
+- ✅ **Drink** - napoje z parametrami (temperatura, objętość)
+- ✅ **Food** - jedzenie z parametrami (waga, opcja wegetariańska)
+
+#### Moduł Zamówień (`order/`)
+- ✅ **Order** - kompleksowe zarządzanie zamówieniami
+- ✅ **OrderItem** - pozycje zamówienia z walidacją
+- ✅ **Payment** - płatności z enum PaymentMethod (Gotówka, Karta, Mobile, Bon)
+- ✅ **OrderStatus** (enum) - statusy zamówień (5 stanów)
+
+#### Moduł Wyjątków (`exception/`)
+- ✅ **InvalidOrderException** - własny wyjątek użytkownika
+
+#### Interfejs Użytkownika
+- ✅ Interaktywne menu z obsługą Scanner
+- ✅ Tworzenie i zarządzanie zamówieniami
+- ✅ Wyświetlanie menu kawiarni (16 produktów)
+- ✅ Historia zamówień
+- ✅ Statystyki sprzedaży i przychodów
+
+### 🎯 Spełnione wymagania projektowe:
+- ✅ Min. 10 klas (11 klas zaimplementowanych)
+- ✅ 2 hierarchie dziedziczenia (Person→Customer/Employee, Product→Drink/Food)
+- ✅ 2 klasy abstrakcyjne (Person, Product)
+- ✅ 2 metody abstrakcyjne (getInfo(), getDescription())
+- ✅ 3 pętle (główne menu, dodawanie produktów, wyświetlanie list)
+- ✅ 3 kolekcje/tablice (orderHistory, menu, items w Order)
+- ✅ 2 metody statyczne (getTotalCustomers(), getTotalOrders(), getTotalPayments())
+- ✅ 2 pola statyczne (nextId w Customer/Employee/Order, totalPayments)
+- ✅ Własny wyjątek (InvalidOrderException) + obsługa (try-catch)
+- ✅ Hermetyzacja (wszystkie pola prywatne/chronione)
+- ✅ toString() ≥3 (zaimplementowane we wszystkich klasach)
+- ✅ equals() i hashCode() (we wszystkich klasach)
+- ✅ Kolekcje (ArrayList)
+- ✅ 2 enumy (OrderStatus, PaymentMethod)
+- ✅ Interaktywność (Scanner)
+
+### 🔜 Do zaimplementowania:
+- ⏳ Interfejsy (IUserInterface, IOrderHandler)
+- ⏳ Klasa MenuManager
+- ⏳ Sortowanie (Comparable, Comparator)
+- ⏳ Metoda generyczna
+- ⏳ Upcasting/downcasting
+- ⏳ HashMap (opcjonalnie)
 
 ## 🧩 Założenia i wymagania projektowe
 
@@ -96,41 +155,45 @@ CafeControl/
 
 ## 🚀 Plan prac
 
-### **Etap 1 – Struktura projektu (IntelliJ + repozytorium GitHub)**
+### **Etap 1 – Struktura projektu (IntelliJ + repozytorium GitHub)** ✅
 - Utworzenie głównych pakietów projektu (`model`, `order`, `interfaces`, `util`, `exception`)
 - Stworzenie pustych klas i interfejsów
 - Inicjalizacja repozytorium GitHub
 - Wstępny commit z plikiem `README.md`
-- *ukończony
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 2 – Implementacja klas modelu**
+### **Etap 2 – Implementacja klas modelu** ✅
 - Implementacja klas:  
   `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`
 - Dodanie konstruktorów, pól, metod i `toString()`
 - Wprowadzenie dziedziczenia i hermetyzacji
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 3 – Moduł zamówień i płatności**
+### **Etap 3 – Moduł zamówień i płatności** ✅
 - Utworzenie klas:  
-  `Order`, `OrderItem`, `Payment`
+  `Order`, `OrderItem`, `Payment`, `OrderStatus` (enum)
 - Implementacja wyjątków użytkownika i obsługi błędów (`try-catch`)
-- Dodanie kolekcji i relacji między obiektami
+- Dodanie kolekcji (`ArrayList`) i relacji między obiektami
+- Implementacja enum `PaymentMethod` dla metod płatności
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)**
+### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)** 🔄
 - Implementacja klas:  
   `Main`, `MenuManager`
 - Wprowadzenie pętli i komunikatów w konsoli
 - Obsługa wejścia użytkownika (Scanner)
 - Logika tworzenia zamówień, dodawania produktów i realizacji płatności
+- **Status:** W TRAKCIE (Main.java częściowo zaimplementowany)
 
 ---
 
-### **Etap 5 – Dodatkowe funkcje i sortowanie**
+### **Etap 5 – Dodatkowe funkcje i sortowanie** 🔄
 - Implementacja interfejsów `Comparable` i `Comparator`
 - Wykorzystanie sortowania obiektów na dwa różne sposoby
 - Dodanie `enum` (np. typy napojów, status zamówienia)
@@ -138,7 +201,7 @@ CafeControl/
 
 ---
 
-### **Etap 6 – Testy i dokumentacja**
+### **Etap 6 – Testy i dokumentacja** 🔄
 - Utworzenie przykładowych obiektów i testów funkcjonalnych
 - Sprawdzenie poprawności działania wszystkich funkcji
 - Uzupełnienie i finalizacja `README.md`
@@ -148,7 +211,7 @@ CafeControl/
 ## 👥 Podział zadań w zespole
 
 ### **Damian Tchorzewski**
-- **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub)
+- **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub) ✅
     - Utworzenie pełnej struktury katalogów i pustych klas
     - Inicjalizacja repozytorium i README.md
 - **Etap 6:** Testy końcowe i dokumentacja
@@ -158,7 +221,7 @@ CafeControl/
 ---
 
 ### **Członek zespołu – Model danych**
-- **Etap 2:** Implementacja klas modelu
+- **Etap 2:** Implementacja klas modelu ✅
     - Klasy: `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`
     - Zastosowanie dziedziczenia i hermetyzacji
     - Implementacja metod `toString()`, `equals()` i `hashCode()`
@@ -167,7 +230,7 @@ CafeControl/
 ---
 
 ### **Członek zespołu – Moduł zamówień i płatności**
-- **Etap 3:** Logika zamówień i obsługa wyjątków
+- **Etap 3:** Logika zamówień i obsługa wyjątków ✅
     - Klasy: `Order`, `OrderItem`, `Payment`
     - Enum: `OrderStatus`
     - Zastosowanie kolekcji do przechowywania pozycji zamówienia

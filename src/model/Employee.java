@@ -3,11 +3,17 @@ package model;
 import java.util.Objects;
 
 /**
+ * Klasa reprezentująca pracownika kawiarni.
+ * Dziedziczy po abstrakcyjnej klasie Person i implementuje metodę abstrakcyjną getInfo().
+ * Rozszerza funkcjonalność o stanowisko i wynagrodzenie.
+ */
+/**
  * Klasa reprezentująca pracownika kawiarni
  */
 public class Employee extends Person {
     private int employeeId;
     private String position;
+    private double salary;
     private static int nextId = 1000;  // Statyczne pole do automatycznej numeracji pracowników
 
     /**
@@ -15,11 +21,23 @@ public class Employee extends Person {
      * @param name imię pracownika
      * @param age wiek pracownika
      * @param position stanowisko pracownika
+     * @param salary pensja pracownika
      */
-    public Employee(String name, int age, String position) {
+    public Employee(String name, int age, String position, double salary) {
         super(name, age);
         this.employeeId = nextId++;
         this.position = position;
+        this.salary = salary;
+    }
+    
+    /**
+     * Konstruktor bez pensji (domyślna 0)
+     * @param name imię pracownika
+     * @param age wiek pracownika
+     * @param position stanowisko pracownika
+     */
+    public Employee(String name, int age, String position) {
+        this(name, age, position, 0.0);
     }
 
     /**
@@ -27,12 +45,14 @@ public class Employee extends Person {
      * @param name imię pracownika
      * @param age wiek pracownika
      * @param position stanowisko pracownika
+     * @param salary pensja pracownika
      * @param employeeId ID pracownika
      */
-    public Employee(String name, int age, String position, int employeeId) {
+    public Employee(String name, int age, String position, double salary, int employeeId) {
         super(name, age);
         this.employeeId = employeeId;
         this.position = position;
+        this.salary = salary;
         if (employeeId >= nextId) {
             nextId = employeeId + 1;
         }
@@ -54,6 +74,14 @@ public class Employee extends Person {
     public void setPosition(String position) {
         this.position = position;
     }
+    
+    public double getSalary() {
+        return salary;
+    }
+    
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
 
     /**
      * Statyczna metoda zwracająca liczbę utworzonych pracowników
@@ -65,7 +93,8 @@ public class Employee extends Person {
 
     @Override
     public String getInfo() {
-        return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + ", wiek: " + age;
+        return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + 
+               ", pensja: " + String.format("%.2f", salary) + " zł, wiek: " + age;
     }
 
     @Override
@@ -75,6 +104,7 @@ public class Employee extends Person {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", position='" + position + '\'' +
+                ", salary=" + salary +
                 '}';
     }
 
@@ -84,11 +114,13 @@ public class Employee extends Person {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Employee employee = (Employee) o;
-        return employeeId == employee.employeeId && Objects.equals(position, employee.position);
+        return employeeId == employee.employeeId && 
+               Double.compare(employee.salary, salary) == 0 && 
+               Objects.equals(position, employee.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), employeeId, position);
+        return Objects.hash(super.hashCode(), employeeId, position, salary);
     }
 }

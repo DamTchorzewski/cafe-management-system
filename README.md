@@ -54,45 +54,60 @@ Zespół projektowy  – Programowanie w Javie
 - ✅ **Food** - jedzenie z parametrami (waga, opcja wegetariańska)
 
 #### Moduł Zamówień (`order/`)
-- ✅ **Order** - kompleksowe zarządzanie zamówieniami
+- ✅ **Order** - kompleksowe zarządzanie zamówieniami + Comparable
 - ✅ **OrderItem** - pozycje zamówienia z walidacją
 - ✅ **Payment** - płatności z enum PaymentMethod (Gotówka, Karta, Mobile, Bon)
 - ✅ **OrderStatus** (enum) - statusy zamówień (5 stanów)
+
+#### Moduł Narzędzi (`util/`)
+- ✅ **SortUtils** - metody generyczne do sortowania (Comparable + Comparator)
+- ✅ **MenuManager** - zarządzanie menu, filtrowanie, sortowanie produktów
+
+#### Moduł Interfejsów (`interfaces/`)
+- ✅ **IUserInterface** - interfejs dla obsługi UI
+- ✅ **IOrderHandler** - interfejs dla zarządzania zamówieniami
 
 #### Moduł Wyjątków (`exception/`)
 - ✅ **InvalidOrderException** - własny wyjątek użytkownika
 
 #### Interfejs Użytkownika
+- ✅ **Main** - implementuje IUserInterface i IOrderHandler
 - ✅ Interaktywne menu z obsługą Scanner
 - ✅ Tworzenie i zarządzanie zamówieniami
 - ✅ Wyświetlanie menu kawiarni (16 produktów)
 - ✅ Historia zamówień
 - ✅ Statystyki sprzedaży i przychodów
+- ✅ Demonstracja polimorfizmu, upcasting i downcasting
 
 ### 🎯 Spełnione wymagania projektowe:
-- ✅ Min. 10 klas (11 klas zaimplementowanych)
-- ✅ 2 hierarchie dziedziczenia (Person→Customer/Employee, Product→Drink/Food)
-- ✅ 2 klasy abstrakcyjne (Person, Product)
-- ✅ 2 metody abstrakcyjne (getInfo(), getDescription())
-- ✅ 3 pętle (główne menu, dodawanie produktów, wyświetlanie list)
-- ✅ 3 kolekcje/tablice (orderHistory, menu, items w Order)
-- ✅ 2 metody statyczne (getTotalCustomers(), getTotalOrders(), getTotalPayments())
-- ✅ 2 pola statyczne (nextId w Customer/Employee/Order, totalPayments)
-- ✅ Własny wyjątek (InvalidOrderException) + obsługa (try-catch)
-- ✅ Hermetyzacja (wszystkie pola prywatne/chronione)
-- ✅ toString() ≥3 (zaimplementowane we wszystkich klasach)
-- ✅ equals() i hashCode() (we wszystkich klasach)
-- ✅ Kolekcje (ArrayList)
-- ✅ 2 enumy (OrderStatus, PaymentMethod)
-- ✅ Interaktywność (Scanner)
+- ✅ **Min. 10 klas** - 13 klas zaimplementowanych (Main, Person, Customer, Employee, Product, Drink, Food, Order, OrderItem, Payment, OrderStatus, InvalidOrderException, MenuManager, SortUtils + interfejsy)
+- ✅ **2 hierarchie dziedziczenia** - Person→Customer/Employee, Product→Drink/Food
+- ✅ **2 klasy abstrakcyjne** - Person, Product
+- ✅ **2 metody abstrakcyjne** - getInfo(), getDescription()
+- ✅ **3 pętle** - główne menu, dodawanie produktów, wyświetlanie list, iteracje po kolekcjach
+- ✅ **3 kolekcje** - orderHistory (ArrayList), menu (ArrayList), items w Order (ArrayList)
+- ✅ **2 metody statyczne** - getTotalCustomers(), getTotalOrders(), getTotalPayments(), sortList()
+- ✅ **2 pola statyczne** - nextId w Customer/Employee/Order, totalPayments
+- ✅ **Własny wyjątek** - InvalidOrderException + obsługa (try-catch w wielu miejscach)
+- ✅ **Hermetyzacja** - wszystkie pola prywatne/chronione, gettery/settery
+- ✅ **toString() ≥3** - zaimplementowane we wszystkich klasach modelu i zamówień
+- ✅ **equals() i hashCode()** - we wszystkich klasach
+- ✅ **Interfejsy** - IUserInterface, IOrderHandler + implementacja w Main
+- ✅ **Sortowanie** - Comparable (Order implements Comparable), Comparator (w SortUtils)
+- ✅ **Metoda generyczna** - sortList<T extends Comparable<T>> i sortList<T> z Comparatorem
+- ✅ **Upcasting/downcasting** - w showMenu() i demonstratePolymorphism()
+- ✅ **Kolekcje** - ArrayList używany w wielu miejscach
+- ✅ **2 enumy** - OrderStatus (5 wartości), PaymentMethod (4 wartości)
+- ✅ **Interaktywność** - Scanner, pełne menu interaktywne
 
-### 🔜 Do zaimplementowania:
-- ⏳ Interfejsy (IUserInterface, IOrderHandler)
-- ⏳ Klasa MenuManager
-- ⏳ Sortowanie (Comparable, Comparator)
-- ⏳ Metoda generyczna
-- ⏳ Upcasting/downcasting
-- ⏳ HashMap (opcjonalnie)
+### ✅ Dodatkowo zaimplementowane:
+- ✅ **Interfejsy** - IUserInterface i IOrderHandler zaimplementowane w Main
+- ✅ **MenuManager** - pełna funkcjonalność zarządzania menu
+- ✅ **Sortowanie** - Comparable (Order) i Comparator (SortUtils, MenuManager)
+- ✅ **Metody generyczne** - w SortUtils z bounded types
+- ✅ **Upcasting/downcasting** - demonstracja w showMenu() i demonstratePolymorphism()
+- ✅ **Polimorfizm** - Person→Customer/Employee, Product→Drink/Food
+- ✅ **Anonimowe klasy** - Comparator jako klasy anonimowe (zgodnie ze specyfikacją)
 
 ## 🧩 Założenia i wymagania projektowe
 
@@ -183,30 +198,70 @@ CafeControl/
 
 ---
 
-### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)** 🔄
+### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)** ✅
 - Implementacja klas:  
   `Main`, `MenuManager`
 - Wprowadzenie pętli i komunikatów w konsoli
 - Obsługa wejścia użytkownika (Scanner)
 - Logika tworzenia zamówień, dodawania produktów i realizacji płatności
-- **Status:** W TRAKCIE (Main.java częściowo zaimplementowany)
+- Implementacja interfejsów IUserInterface i IOrderHandler
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 5 – Dodatkowe funkcje i sortowanie** 🔄
+### **Etap 5 – Dodatkowe funkcje i sortowanie** ✅
 - Implementacja interfejsów `Comparable` i `Comparator`
 - Wykorzystanie sortowania obiektów na dwa różne sposoby
-- Dodanie `enum` (np. typy napojów, status zamówienia)
-- Implementacja metody generycznej do sortowania
+- Dodanie `enum` (OrderStatus, PaymentMethod)
+- Implementacja metody generycznej do sortowania w SortUtils
+- Demonstracja upcasting/downcasting
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 6 – Testy i dokumentacja** 🔄
-- Utworzenie przykładowych obiektów i testów funkcjonalnych
-- Sprawdzenie poprawności działania wszystkich funkcji
-- Uzupełnienie i finalizacja `README.md`
-- Ostateczny commit i wersja końcowa projektu
+### **Etap 6 – Testy i dokumentacja** ✅
+- ✅ Uzupełnienie i finalizacja `README.md`
+- ✅ Weryfikacja wszystkich wymagań projektowych
+- ✅ Testy funkcjonalne wszystkich modułów (TestDemo.java)
+- ✅ Dokumentacja i komentarze w kodzie
 
+---
+
+### Uruchomienie głównej aplikacji
+```bash
+javac src/Main.java
+java -cp src Main
+```
+
+---
+
+## 📝 Podsumowanie implementacji
+
+### Wszystkie wymagania spełnione ✅
+
+| Wymaganie | Implementacja | Lokalizacja |
+|-----------|--------------|-------------|
+| Min. 10 klas | 13+ klas | Cały projekt |
+| 2 hierarchie dziedziczenia | Person→Customer/Employee<br>Product→Drink/Food | `model/` |
+| 2 klasy abstrakcyjne | Person, Product | `model/` |
+| 2 metody abstrakcyjne | getInfo(), getDescription() | Person, Product |
+| 3 pętle | while, for, foreach | Main.java |
+| 3 kolekcje | ArrayList×3 | orderHistory, menu, items |
+| 2 metody statyczne | getTotalCustomers(), getTotalOrders(), etc. | Customer, Order, Payment |
+| 2 pola statyczne | nextId, totalPayments | Wiele klas |
+| Własny wyjątek | InvalidOrderException | `exception/` |
+| Hermetyzacja | Wszystkie pola private/protected | Wszystkie klasy |
+| toString() ≥3 | We wszystkich klasach | Cały projekt |
+| equals() i hashCode() | We wszystkich klasach | Cały projekt |
+| Interfejsy | IUserInterface, IOrderHandler | `interfaces/` + Main |
+| Sortowanie | Comparable + Comparator | Order, SortUtils |
+| Metoda generyczna | sortList<T> | SortUtils |
+| Upcasting/downcasting | W showMenu(), demonstratePolymorphism() | Main.java |
+| Kolekcje | ArrayList | Cały projekt |
+| Enumy | OrderStatus, PaymentMethod | `order/` |
+| Interaktywność | Scanner | Main.java |
+
+---
 
 ## 👥 Podział zadań w zespole
 

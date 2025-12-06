@@ -10,9 +10,7 @@ import java.util.Objects;
  * Zawiera walidację ilości i rzuca własny wyjątek InvalidOrderException w przypadku błędnych danych.
  */
 
-/**
- * Klasa reprezentująca pojedynczą pozycję w zamówieniu
- */
+
 public class OrderItem {
     private Product product;
     private int quantity;

@@ -16,10 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Klasa reprezentująca zamówienie w kawiarni
- * Implementuje Comparable do sortowania zamówień po dacie
- */
+
 public class Order implements Comparable<Order> {
     private int orderId;
     private Customer customer;

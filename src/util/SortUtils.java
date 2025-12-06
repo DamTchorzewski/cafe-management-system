@@ -11,10 +11,7 @@ import java.util.List;
  * jak i z wykorzystaniem zewnętrznych obiektów Comparator.
  */
 
-/**
- * Klasa narzędziowa do sortowania list obiektów
- * Zawiera metody generyczne wykorzystujące Comparable i Comparator
- */
+
 public class SortUtils {
     
     /**

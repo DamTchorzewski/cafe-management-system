@@ -7,9 +7,7 @@ import java.util.Objects;
  * Dziedziczy po abstrakcyjnej klasie Product i implementuje metodę getDescription().
  * Rozszerza funkcjonalność o wagę i informację czy jest wegetariańskie.
  */
-/**
- * Klasa reprezentująca jedzenie w kawiarni
- */
+
 public class Food extends Product {
     private boolean isVegetarian;
     private int weightInGrams;

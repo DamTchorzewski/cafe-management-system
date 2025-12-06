@@ -7,9 +7,7 @@ import java.util.Objects;
  * Stanowi podstawę hierarchii dziedziczenia dla klas Drink i Food.
  * Definiuje wspólne właściwości i abstrakcyjną metodę getDescription().
  */
-/**
- * Abstrakcyjna klasa reprezentująca produkt w kawiarni
- */
+
 public abstract class Product {
     protected String name;
     protected double price;

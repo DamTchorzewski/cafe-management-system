@@ -7,9 +7,7 @@ import java.util.Objects;
  * Stanowi podstawę hierarchii dziedziczenia dla klas Customer i Employee.
  * Demonstruje zastosowanie klasy abstrakcyjnej z metodą abstrakcyjną getInfo().
  */
-/**
- * Abstrakcyjna klasa reprezentująca osobę w systemie
- */
+
 public abstract class Person {
     protected String name;
     protected int age;

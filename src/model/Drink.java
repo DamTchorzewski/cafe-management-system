@@ -7,9 +7,7 @@ import java.util.Objects;
  * Dziedziczy po abstrakcyjnej klasie Product i implementuje metodę getDescription().
  * Rozszerza funkcjonalność o temperaturę i objętość napoju.
  */
-/**
- * Klasa reprezentująca napój w kawiarni
- */
+
 public class Drink extends Product {
     private boolean isHot;
     private int volumeInMl;

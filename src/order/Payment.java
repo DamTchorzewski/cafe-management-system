@@ -12,9 +12,7 @@ import java.time.format.DateTimeFormatter;
  */
 import java.util.Objects;
 
-/**
- * Klasa reprezentująca płatność za zamówienie
- */
+
 public class Payment {
     private double amount;
     private boolean isPaid;

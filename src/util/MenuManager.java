@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Klasa zarządzająca menu kawiarni
- * Umożliwia organizację, filtrowanie i sortowanie produktów
- */
+
 public class MenuManager {
     private List<Product> products;
     

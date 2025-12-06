@@ -7,9 +7,7 @@ import java.util.Objects;
  * Dziedziczy po abstrakcyjnej klasie Person i implementuje metodę abstrakcyjną getInfo().
  * Rozszerza funkcjonalność o stanowisko i wynagrodzenie.
  */
-/**
- * Klasa reprezentująca pracownika kawiarni
- */
+
 public class Employee extends Person {
     private int employeeId;
     private String position;

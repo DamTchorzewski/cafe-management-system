@@ -222,7 +222,7 @@ CafeControl/
 ### **Etap 6 – Testy i dokumentacja** ✅
 - ✅ Uzupełnienie i finalizacja `README.md`
 - ✅ Weryfikacja wszystkich wymagań projektowych
-- ✅ Testy funkcjonalne wszystkich modułów (TestDemo.java)
+- Testy funkcjonalne wszystkich modułów (TestDemo.java)
 - ✅ Dokumentacja i komentarze w kodzie
 
 ---

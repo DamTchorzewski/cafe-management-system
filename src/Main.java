@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Główna klasa uruchamiająca system CafeControl
- * System obsługi kawiarni z interaktywnym interfejsem użytkownika
- */
+
 public class Main implements IUserInterface, IOrderHandler {
     private List<Order> orderHistory = new ArrayList<>();
     private List<Product> menu = new ArrayList<>();

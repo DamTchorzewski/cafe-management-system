@@ -1,7 +1,15 @@
+/**
+ * Główna klasa aplikacji CafeControl - system zarządzania kawiarnią.
+ * Implementuje interfejsy IUserInterface i IOrderHandler, zapewniając
+ * interaktywny interfejs konsolowy do obsługi zamówień, menu i klientów.
+ * Demonstruje zastosowanie polimorfizmu, dziedziczenia, upcasting i downcasting.
+ */
 import model.*;
 import order.*;
 import order.Payment.PaymentMethod;
 import exception.InvalidOrderException;
+import interfaces.IOrderHandler;
+import interfaces.IUserInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,11 +18,16 @@ import java.util.Scanner;
  * Główna klasa uruchamiająca system CafeControl
  * System obsługi kawiarni z interaktywnym interfejsem użytkownika
  */
-public class Main {
-    private static Scanner scanner = new Scanner(System.in);
-    private static List<Order> orderHistory = new ArrayList<>();
-    private static List<Product> menu = new ArrayList<>();
-    private static Order currentOrder = null;
+public class Main implements IUserInterface, IOrderHandler {
+    private List<Order> orderHistory = new ArrayList<>();
+    private List<Product> menu = new ArrayList<>();
+    private Order currentOrder = null;
+    private Scanner scanner;
+    
+    public Main(Scanner scanner) {
+        this.scanner = scanner;
+        initializeMenu();
+    }
     
     public static void main(String[] args) {
         System.out.println("☕ ════════════════════════════════════════════════");
@@ -22,41 +35,55 @@ public class Main {
         System.out.println("   System zarządzania kawiarnią");
         System.out.println("════════════════════════════════════════════════\n");
         
-        // Inicjalizacja menu kawiarni
-        initializeMenu();
-        
-        showMainMenu();
+        try (Scanner scanner = new Scanner(System.in)) {
+            Main app = new Main(scanner);
+            app.displayMainMenu();
+        }
     }
     
     /**
      * Inicjalizuje menu kawiarni
      */
-    private static void initializeMenu() {
+    private void initializeMenu() {
+        menu = getDefaultMenu();
+    }
+    
+    /**
+     * Zwraca domyślne menu kawiarni jako listę produktów
+     * @return lista produktów zawierająca napoje i jedzenie
+     */
+    private List<Product> getDefaultMenu() {
+        List<Product> defaultMenu = new ArrayList<>();
+        
         // Napoje
-        menu.add(new Drink("Espresso", 8.50, true, 30));
-        menu.add(new Drink("Cappuccino", 12.00, true, 200));
-        menu.add(new Drink("Latte", 13.50, true, 250));
-        menu.add(new Drink("Americano", 10.00, true, 150));
-        menu.add(new Drink("Herbata czarna", 7.00, true, 200));
-        menu.add(new Drink("Herbata zielona", 7.50, true, 200));
-        menu.add(new Drink("Lemoniada", 10.00, false, 300));
-        menu.add(new Drink("Sok pomarańczowy", 9.00, false, 250));
+        defaultMenu.add(new Drink("Espresso", 8.50, true, 30));
+        defaultMenu.add(new Drink("Cappuccino", 12.00, true, 200));
+        defaultMenu.add(new Drink("Latte", 13.50, true, 250));
+        defaultMenu.add(new Drink("Americano", 10.00, true, 150));
+        defaultMenu.add(new Drink("Herbata czarna", 7.00, true, 200));
+        defaultMenu.add(new Drink("Herbata zielona", 7.50, true, 200));
+        defaultMenu.add(new Drink("Lemoniada", 10.00, false, 300));
+        defaultMenu.add(new Drink("Sok pomarańczowy", 9.00, false, 250));
         
         // Jedzenie
-        menu.add(new Food("Croissant", 6.50, false, 70));
-        menu.add(new Food("Croissant czekoladowy", 7.50, false, 80));
-        menu.add(new Food("Kanapka z szynką", 15.00, false, 200));
-        menu.add(new Food("Kanapka wegetariańska", 14.00, true, 180));
-        menu.add(new Food("Sałatka grecka", 18.00, true, 250));
-        menu.add(new Food("Ciasto czekoladowe", 15.00, true, 150));
-        menu.add(new Food("Sernik", 14.00, true, 140));
-        menu.add(new Food("Muffin", 8.00, true, 100));
+        defaultMenu.add(new Food("Croissant", 6.50, false, 70));
+        defaultMenu.add(new Food("Croissant czekoladowy", 7.50, false, 80));
+        defaultMenu.add(new Food("Kanapka z szynką", 15.00, false, 200));
+        defaultMenu.add(new Food("Kanapka wegetariańska", 14.00, true, 180));
+        defaultMenu.add(new Food("Sałatka grecka", 18.00, true, 250));
+        defaultMenu.add(new Food("Ciasto czekoladowe", 15.00, true, 150));
+        defaultMenu.add(new Food("Sernik", 14.00, true, 140));
+        defaultMenu.add(new Food("Muffin", 8.00, true, 100));
+        
+        return defaultMenu;
     }
     
     /**
      * Wyświetla główne menu systemu
+     * Implementacja metody z interfejsu IUserInterface
      */
-    private static void showMainMenu() {
+    @Override
+    public void displayMainMenu() {
         boolean running = true;
         
         while (running) {
@@ -77,7 +104,7 @@ public class Main {
                 
                 switch (choice) {
                     case 1:
-                        createNewOrder();
+                        createOrder();
                         break;
                     case 2:
                         showMenu();
@@ -101,14 +128,24 @@ public class Main {
                 scanner.nextLine(); // Czyści bufor
             }
         }
-        
-        scanner.close();
+    }
+    
+    /**
+     * Przetwarza wejście użytkownika
+     * Implementacja metody z interfejsu IUserInterface
+     */
+    @Override
+    public void processUserInput() {
+        // Metoda pomocnicza - główna logika w displayMainMenu
+        displayMainMenu();
     }
     
     /**
      * Tworzy nowe zamówienie
+     * Implementacja metody z interfejsu IOrderHandler
      */
-    private static void createNewOrder() {
+    @Override
+    public void createOrder() {
         try {
             System.out.println("\n╔══════════════════════════════════════════╗");
             System.out.println("║       NOWE ZAMÓWIENIE                    ║");
@@ -178,7 +215,7 @@ public class Main {
     /**
      * Dodaje produkt do bieżącego zamówienia
      */
-    private static void addProductToOrder() {
+    private void addProductToOrder() {
         try {
             System.out.println("\n═══ DOSTĘPNE PRODUKTY ═══");
             for (int i = 0; i < menu.size(); i++) {
@@ -214,7 +251,7 @@ public class Main {
     /**
      * Usuwa produkt z bieżącego zamówienia
      */
-    private static void removeProductFromOrder() {
+    private void removeProductFromOrder() {
         try {
             if (currentOrder.isEmpty()) {
                 System.out.println("\n[INFO] Zamówienie jest puste");
@@ -244,7 +281,7 @@ public class Main {
     /**
      * Finalizuje zamówienie (płatność i zakończenie)
      */
-    private static boolean finalizeOrder() {
+    private boolean finalizeOrder() {
         try {
             if (currentOrder.isEmpty()) {
                 System.out.println("\n[BŁĄD] Nie można sfinalizować pustego zamówienia");
@@ -310,25 +347,32 @@ public class Main {
     
     /**
      * Wyświetla menu kawiarni
+     * Demonstracja polimorfizmu, upcasting i downcasting
      */
-    private static void showMenu() {
+    private void showMenu() {
         System.out.println("\n╔══════════════════════════════════════════╗");
         System.out.println("║          MENU KAWIARNI                   ║");
         System.out.println("╚══════════════════════════════════════════╝");
         
         System.out.println("\n☕ NAPOJE:");
         System.out.println("────────────────────────────────────────────");
-        for (Product p : menu) {
-            if (p instanceof Drink) {
-                System.out.println("  • " + p.getDescription());
+        for (Product p : menu) { // UPCASTING: Drink/Food traktowane jako Product
+            if (p instanceof Drink) { // Sprawdzenie typu przed downcastingiem
+                Drink drink = (Drink) p; // DOWNCASTING: Product -> Drink
+                System.out.println("  • " + drink.getDescription() + 
+                                 " [" + drink.getVolumeInMl() + "ml, " + 
+                                 (drink.isHot() ? "gorący" : "zimny") + "]");
             }
         }
         
         System.out.println("\n🍰 JEDZENIE:");
         System.out.println("────────────────────────────────────────────");
-        for (Product p : menu) {
-            if (p instanceof Food) {
-                System.out.println("  • " + p.getDescription());
+        for (Product p : menu) { // UPCASTING
+            if (p instanceof Food) { // Sprawdzenie typu przed downcastingiem
+                Food food = (Food) p; // DOWNCASTING: Product -> Food
+                System.out.println("  • " + food.getDescription() + 
+                                 " [" + food.getWeightInGrams() + "g" + 
+                                 (food.isVegetarian() ? ", WEGE" : "") + "]");
             }
         }
         System.out.println();
@@ -337,7 +381,7 @@ public class Main {
     /**
      * Wyświetla historię zamówień
      */
-    private static void showOrderHistory() {
+    private void showOrderHistory() {
         System.out.println("\n╔══════════════════════════════════════════╗");
         System.out.println("║       HISTORIA ZAMÓWIEŃ                  ║");
         System.out.println("╚══════════════════════════════════════════╝");
@@ -358,7 +402,7 @@ public class Main {
     /**
      * Wyświetla statystyki systemu
      */
-    private static void showStatistics() {
+    private void showStatistics() {
         System.out.println("\n╔══════════════════════════════════════════╗");
         System.out.println("║          STATYSTYKI SYSTEMU              ║");
         System.out.println("╚══════════════════════════════════════════╝");
@@ -385,5 +429,66 @@ public class Main {
         }
         
         System.out.println();
+    }
+    
+    /**
+     * Anuluje zamówienie po ID
+     * Implementacja metody z interfejsu IOrderHandler
+     * @param orderId ID zamówienia do anulowania
+     */
+    @Override
+    public void cancelOrder(int orderId) {
+        try {
+            for (Order order : orderHistory) {
+                if (order.getOrderId() == orderId) {
+                    order.cancel();
+                    System.out.println("\n✓ Zamówienie #" + orderId + " zostało anulowane");
+                    return;
+                }
+            }
+            System.out.println("\n[BŁĄD] Nie znaleziono zamówienia o ID: " + orderId);
+        } catch (InvalidOrderException e) {
+            System.out.println("\n[BŁĄD] " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Wyświetla szczegóły zamówienia
+     * Implementacja metody z interfejsu IOrderHandler
+     * @param order zamówienie do wyświetlenia
+     */
+    @Override
+    public void displayOrderDetails(Order order) {
+        if (order == null) {
+            System.out.println("\n[BŁĄD] Zamówienie nie istnieje");
+            return;
+        }
+        System.out.println("\n" + order.getOrderDetails());
+    }
+    
+    /**
+     * Demonstracja polimorfizmu - różne osoby reprezentowane jako Person
+     * Przykład upcasting i downcasting
+     */
+    private void demonstratePolymorphism() {
+        // UPCASTING - Customer i Employee traktowane jako Person
+        Person person1 = new Customer("Jan Kowalski", 30); // Upcasting automatyczny
+        Person person2 = new Employee("Anna Nowak", 28, "Barista", 4500.0); // Upcasting automatyczny
+        
+        // Polimorfizm - wywołanie metody abstrakcyjnej zaimplementowanej różnie
+        System.out.println(person1.getInfo()); // Wywołuje Customer.getInfo()
+        System.out.println(person2.getInfo()); // Wywołuje Employee.getInfo()
+        
+        // DOWNCASTING - dostęp do specyficznych metod podklas
+        if (person1 instanceof Customer) {
+            Customer customer = (Customer) person1; // Downcasting z Person do Customer
+            System.out.println("ID klienta: " + customer.getCustomerId());
+        }
+        
+        if (person2 instanceof Employee) {
+            Employee employee = (Employee) person2; // Downcasting z Person do Employee
+            System.out.println("Stanowisko: " + employee.getPosition());
+            System.out.println("Pensja: " + employee.getSalary() + " zł");
+        }
     }
 }

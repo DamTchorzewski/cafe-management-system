@@ -3,6 +3,13 @@ package order;
 import model.Customer;
 import model.Product;
 import exception.InvalidOrderException;
+
+/**
+ * Klasa reprezentująca zamówienie w systemie kawiarni.
+ * Implementuje interfejs Comparable<Order> do umożliwienia sortowania zamówień według daty.
+ * Zarządza pozycjami zamówienia, oblicza całkowitą wartość i obsługuje statusy zamówienia.
+ * Wykorzystuje pole statyczne do generowania unikalnych identyfikatorów zamówień.
+ */
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,8 +18,9 @@ import java.util.Objects;
 
 /**
  * Klasa reprezentująca zamówienie w kawiarni
+ * Implementuje Comparable do sortowania zamówień po dacie
  */
-public class Order {
+public class Order implements Comparable<Order> {
     private int orderId;
     private Customer customer;
     private List<OrderItem> items;
@@ -140,7 +148,16 @@ public class Order {
             throw new InvalidOrderException("Nie można modyfikować zakończonego lub anulowanego zamówienia");
         }
         
-        boolean removed = items.removeIf(item -> item.getProduct().equals(product));
+        // Ręczne wyszukiwanie i usuwanie (bez lambda)
+        boolean removed = false;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getProduct().equals(product)) {
+                items.remove(i);
+                removed = true;
+                break;
+            }
+        }
+        
         if (!removed) {
             throw new InvalidOrderException("Produkt nie znajduje się w zamówieniu");
         }
@@ -314,5 +331,16 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(orderId);
+    }
+    
+    /**
+     * Porównuje zamówienia po dacie zamówienia (od najstarszego do najnowszego)
+     * Implementacja interfejsu Comparable
+     * @param other drugie zamówienie do porównania
+     * @return wartość ujemna jeśli to zamówienie jest starsze, 0 jeśli równe, dodatnia jeśli nowsze
+     */
+    @Override
+    public int compareTo(Order other) {
+        return this.orderDate.compareTo(other.orderDate);
     }
 }

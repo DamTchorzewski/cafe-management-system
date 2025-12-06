@@ -3,6 +3,11 @@ package model;
 import java.util.Objects;
 
 /**
+ * Abstrakcyjna klasa bazowa reprezentująca osobę w systemie.
+ * Stanowi podstawę hierarchii dziedziczenia dla klas Customer i Employee.
+ * Demonstruje zastosowanie klasy abstrakcyjnej z metodą abstrakcyjną getInfo().
+ */
+/**
  * Abstrakcyjna klasa reprezentująca osobę w systemie
  */
 public abstract class Person {

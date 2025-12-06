@@ -3,6 +3,11 @@ package model;
 import java.util.Objects;
 
 /**
+ * Abstrakcyjna klasa bazowa reprezentująca produkt w menu kawiarni.
+ * Stanowi podstawę hierarchii dziedziczenia dla klas Drink i Food.
+ * Definiuje wspólne właściwości i abstrakcyjną metodę getDescription().
+ */
+/**
  * Abstrakcyjna klasa reprezentująca produkt w kawiarni
  */
 public abstract class Product {

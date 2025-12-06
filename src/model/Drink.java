@@ -3,6 +3,11 @@ package model;
 import java.util.Objects;
 
 /**
+ * Klasa reprezentująca napój w menu kawiarni.
+ * Dziedziczy po abstrakcyjnej klasie Product i implementuje metodę getDescription().
+ * Rozszerza funkcjonalność o temperaturę i objętość napoju.
+ */
+/**
  * Klasa reprezentująca napój w kawiarni
  */
 public class Drink extends Product {

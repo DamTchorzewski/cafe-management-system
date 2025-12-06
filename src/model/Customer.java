@@ -3,6 +3,11 @@ package model;
 import java.util.Objects;
 
 /**
+ * Klasa reprezentująca klienta kawiarni.
+ * Dziedziczy po abstrakcyjnej klasie Person i implementuje metodę abstrakcyjną getInfo().
+ * Wykorzystuje pole statyczne nextId do automatycznego generowania unikalnych identyfikatorów.
+ */
+/**
  * Klasa reprezentująca klienta kawiarni
  */
 public class Customer extends Person {

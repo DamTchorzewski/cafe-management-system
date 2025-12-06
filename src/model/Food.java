@@ -3,6 +3,11 @@ package model;
 import java.util.Objects;
 
 /**
+ * Klasa reprezentująca jedzenie w menu kawiarni.
+ * Dziedziczy po abstrakcyjnej klasie Product i implementuje metodę getDescription().
+ * Rozszerza funkcjonalność o wagę i informację czy jest wegetariańskie.
+ */
+/**
  * Klasa reprezentująca jedzenie w kawiarni
  */
 public class Food extends Product {

@@ -3,6 +3,13 @@ package order;
 import exception.InvalidOrderException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Klasa reprezentująca płatność za zamówienie.
+ * Obsługuje różne metody płatności zdefiniowane w enum PaymentMethod.
+ * Przechowuje informacje o kwocie, dacie płatności i powiązanym zamówieniu.
+ * Wykorzystuje pole statyczne do śledzenia łącznej liczby płatności.
+ */
 import java.util.Objects;
 
 /**

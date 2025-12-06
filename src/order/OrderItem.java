@@ -5,6 +5,12 @@ import exception.InvalidOrderException;
 import java.util.Objects;
 
 /**
+ * Klasa reprezentująca pojedynczą pozycję w zamówieniu.
+ * Łączy produkt z ilością i oblicza wartość częściową pozycji.
+ * Zawiera walidację ilości i rzuca własny wyjątek InvalidOrderException w przypadku błędnych danych.
+ */
+
+/**
  * Klasa reprezentująca pojedynczą pozycję w zamówieniu
  */
 public class OrderItem {

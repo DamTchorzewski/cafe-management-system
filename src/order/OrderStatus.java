@@ -10,8 +10,8 @@ public enum OrderStatus {
     COMPLETED("Zakończone", "Zamówienie zostało zrealizowane i odebrane"),
     CANCELLED("Anulowane", "Zamówienie zostało anulowane");
     
-    private final String displayName;
-    private final String description;
+    private String displayName;
+    private String description;
     
     /**
      * Konstruktor enum OrderStatus

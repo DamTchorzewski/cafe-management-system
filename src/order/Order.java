@@ -10,8 +10,8 @@ import exception.InvalidOrderException;
  * Zarządza pozycjami zamówienia, oblicza całkowitą wartość i obsługuje statusy zamówienia.
  * Wykorzystuje pole statyczne do generowania unikalnych identyfikatorów zamówień.
  */
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +23,7 @@ public class Order implements Comparable<Order> {
     private List<OrderItem> items;
     private OrderStatus status;
     private Payment payment;
-    private LocalDateTime orderDate;
+    private Date orderDate;
     private static int nextOrderId = 1; // Statyczne pole do automatycznej numeracji
     
     /**
@@ -39,7 +39,7 @@ public class Order implements Comparable<Order> {
         this.customer = customer;
         this.items = new ArrayList<>();
         this.status = OrderStatus.NEW;
-        this.orderDate = LocalDateTime.now();
+        this.orderDate = new Date();
         this.payment = null;
     }
     
@@ -57,7 +57,7 @@ public class Order implements Comparable<Order> {
         this.customer = customer;
         this.items = new ArrayList<>();
         this.status = OrderStatus.NEW;
-        this.orderDate = LocalDateTime.now();
+        this.orderDate = new Date();
         this.payment = null;
         if (orderId >= nextOrderId) {
             nextOrderId = orderId + 1;
@@ -99,7 +99,7 @@ public class Order implements Comparable<Order> {
         return payment;
     }
     
-    public LocalDateTime getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
     
@@ -271,8 +271,8 @@ public class Order implements Comparable<Order> {
      * @return data zamówienia jako String
      */
     public String getFormattedOrderDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return orderDate.format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(orderDate);
     }
     
     /**

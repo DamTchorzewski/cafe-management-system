@@ -1,8 +1,8 @@
 package order;
 
 import exception.InvalidOrderException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Klasa reprezentująca płatność za zamówienie.
@@ -17,7 +17,7 @@ public class Payment {
     private double amount;
     private boolean isPaid;
     private PaymentMethod paymentMethod;
-    private LocalDateTime paymentDate;
+    private Date paymentDate;
     private static int totalPayments = 0; // Statyczne pole do liczenia płatności
     
     /**
@@ -29,7 +29,7 @@ public class Payment {
         MOBILE("Płatność mobilna"),
         VOUCHER("Bon");
         
-        private final String displayName;
+        private String displayName;
         
         PaymentMethod(String displayName) {
             this.displayName = displayName;
@@ -100,7 +100,7 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
     
-    public LocalDateTime getPaymentDate() {
+    public Date getPaymentDate() {
         return paymentDate;
     }
     
@@ -126,7 +126,7 @@ public class Payment {
         }
         this.isPaid = true;
         this.paymentMethod = paymentMethod;
-        this.paymentDate = LocalDateTime.now();
+        this.paymentDate = new Date();
         totalPayments++;
     }
     
@@ -142,7 +142,7 @@ public class Payment {
             throw new InvalidOrderException("Nie wybrano metody płatności");
         }
         this.isPaid = true;
-        this.paymentDate = LocalDateTime.now();
+        this.paymentDate = new Date();
         totalPayments++;
     }
     
@@ -167,8 +167,8 @@ public class Payment {
         if (paymentDate == null) {
             return "Brak";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return paymentDate.format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(paymentDate);
     }
     
     @Override

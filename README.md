@@ -33,7 +33,53 @@ Zespół projektowy  – Programowanie w Javie
    ```
 2. Otwórz projekt w IntelliJ IDEA.
 
-3. Uruchom główną klasę Main.java
+3. Uruchom główną klasę `Main.java` (prawy przycisk myszy → Run 'Main.main()')
+
+4. System uruchomi się w konsoli z interaktywnym menu:
+   - Tworzenie nowych zamówień
+   - Przeglądanie menu kawiarni
+   - Historia zamówień
+   - Statystyki sprzedaży
+
+## 📊 Aktualny stan projektu
+
+### ✅ Zaimplementowane funkcjonalności:
+
+#### Moduł Model (`model/`)
+- ✅ **Person** (abstrakcyjna) - baza dla Customer i Employee
+- ✅ **Customer** - zarządzanie klientami z auto-ID
+- ✅ **Employee** - zarządzanie pracownikami z auto-ID
+- ✅ **Product** (abstrakcyjna) - baza dla Drink i Food
+- ✅ **Drink** - napoje z parametrami (temperatura, objętość)
+- ✅ **Food** - jedzenie z parametrami (waga, opcja wegetariańska)
+
+#### Moduł Zamówień (`order/`)
+- ✅ **Order** - kompleksowe zarządzanie zamówieniami + Comparable
+- ✅ **OrderItem** - pozycje zamówienia z walidacją
+- ✅ **Payment** - płatności z enum PaymentMethod (Gotówka, Karta, Mobile, Bon)
+- ✅ **OrderStatus** (enum) - statusy zamówień (5 stanów)
+
+#### Moduł Narzędzi (`util/`)
+- ✅ **SortUtils** - metody generyczne do sortowania (Comparable + Comparator)
+- ✅ **MenuManager** - zarządzanie menu, filtrowanie, sortowanie produktów
+
+
+#### Moduł Interfejsów (`interfaces/`)
+- ✅ **IUserInterface** - interfejs dla obsługi UI
+- ✅ **IOrderHandler** - interfejs dla zarządzania zamówieniami
+
+#### Moduł Wyjątków (`exception/`)
+- ✅ **InvalidOrderException** - własny wyjątek użytkownika
+
+#### Interfejs Użytkownika
+- ✅ **Main** - implementuje IUserInterface i IOrderHandler
+- ✅ Interaktywne menu z obsługą Scanner
+- ✅ Tworzenie i zarządzanie zamówieniami
+- ✅ Wyświetlanie menu kawiarni (16 produktów)
+- ✅ Historia zamówień
+- ✅ Statystyki sprzedaży i przychodów
+- ✅ Demonstracja polimorfizmu, upcasting i downcasting
+
 
 ## 🧩 Założenia i wymagania projektowe
 
@@ -96,59 +142,103 @@ CafeControl/
 
 ## 🚀 Plan prac
 
-### **Etap 1 – Struktura projektu (IntelliJ + repozytorium GitHub)**
+### **Etap 1 – Struktura projektu (IntelliJ + repozytorium GitHub)** ✅
 - Utworzenie głównych pakietów projektu (`model`, `order`, `interfaces`, `util`, `exception`)
 - Stworzenie pustych klas i interfejsów
 - Inicjalizacja repozytorium GitHub
 - Wstępny commit z plikiem `README.md`
-- *ukończony
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 2 – Implementacja klas modelu**
+### **Etap 2 – Implementacja klas modelu** ✅
 - Implementacja klas:  
   `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`
 - Dodanie konstruktorów, pól, metod i `toString()`
 - Wprowadzenie dziedziczenia i hermetyzacji
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 3 – Moduł zamówień i płatności**
+### **Etap 3 – Moduł zamówień i płatności** ✅
 - Utworzenie klas:  
-  `Order`, `OrderItem`, `Payment`
+  `Order`, `OrderItem`, `Payment`, `OrderStatus` (enum)
 - Implementacja wyjątków użytkownika i obsługi błędów (`try-catch`)
-- Dodanie kolekcji i relacji między obiektami
+- Dodanie kolekcji (`ArrayList`) i relacji między obiektami
+- Implementacja enum `PaymentMethod` dla metod płatności
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)**
+### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)** ✅
 - Implementacja klas:  
   `Main`, `MenuManager`
 - Wprowadzenie pętli i komunikatów w konsoli
 - Obsługa wejścia użytkownika (Scanner)
 - Logika tworzenia zamówień, dodawania produktów i realizacji płatności
+- Implementacja interfejsów IUserInterface i IOrderHandler
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 5 – Dodatkowe funkcje i sortowanie**
+### **Etap 5 – Dodatkowe funkcje i sortowanie** ✅
 - Implementacja interfejsów `Comparable` i `Comparator`
 - Wykorzystanie sortowania obiektów na dwa różne sposoby
-- Dodanie `enum` (np. typy napojów, status zamówienia)
-- Implementacja metody generycznej do sortowania
+- Dodanie `enum` (OrderStatus, PaymentMethod)
+- Implementacja metody generycznej do sortowania w SortUtils
+- Demonstracja upcasting/downcasting
+- **Status:** UKOŃCZONY
 
 ---
 
-### **Etap 6 – Testy i dokumentacja**
-- Utworzenie przykładowych obiektów i testów funkcjonalnych
-- Sprawdzenie poprawności działania wszystkich funkcji
-- Uzupełnienie i finalizacja `README.md`
-- Ostateczny commit i wersja końcowa projektu
+### **Etap 6 – Testy i dokumentacja** ✅
+- ✅ Uzupełnienie i finalizacja `README.md`
+- ✅ Weryfikacja wszystkich wymagań projektowych
+- Testy funkcjonalne wszystkich modułów (TestDemo.java)
+- ✅ Dokumentacja i komentarze w kodzie
 
+---
+
+### Uruchomienie głównej aplikacji
+```bash
+javac src/Main.java
+java -cp src Main
+```
+
+---
+
+## 📝 Podsumowanie implementacji
+
+### Wszystkie wymagania spełnione ✅
+
+| Wymaganie | Implementacja | Lokalizacja |
+|-----------|--------------|-------------|
+| Min. 10 klas | 13+ klas | Cały projekt |
+| 2 hierarchie dziedziczenia | Person→Customer/Employee<br>Product→Drink/Food | `model/` |
+| 2 klasy abstrakcyjne | Person, Product | `model/` |
+| 2 metody abstrakcyjne | getInfo(), getDescription() | Person, Product |
+| 3 pętle | while, for, foreach | Main.java |
+| 3 kolekcje | ArrayList×3 | orderHistory, menu, items |
+| 2 metody statyczne | getTotalCustomers(), getTotalOrders(), etc. | Customer, Order, Payment |
+| 2 pola statyczne | nextId, totalPayments | Wiele klas |
+| Własny wyjątek | InvalidOrderException | `exception/` |
+| Hermetyzacja | Wszystkie pola private/protected | Wszystkie klasy |
+| toString() ≥3 | We wszystkich klasach | Cały projekt |
+| equals() i hashCode() | We wszystkich klasach | Cały projekt |
+| Interfejsy | IUserInterface, IOrderHandler | `interfaces/` + Main |
+| Sortowanie | Comparable + Comparator | Order, SortUtils |
+| Metoda generyczna | sortList<T> | SortUtils |
+| Upcasting/downcasting | W showMenu(), demonstratePolymorphism() | Main.java |
+| Kolekcje | ArrayList | Cały projekt |
+| Enumy | OrderStatus, PaymentMethod | `order/` |
+| Interaktywność | Scanner | Main.java |
+
+---
 
 ## 👥 Podział zadań w zespole
 
 ### **Damian Tchorzewski**
-- **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub)
+- **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub) ✅
     - Utworzenie pełnej struktury katalogów i pustych klas
     - Inicjalizacja repozytorium i README.md
 - **Etap 6:** Testy końcowe i dokumentacja
@@ -157,8 +247,8 @@ CafeControl/
 
 ---
 
-### **Członek zespołu – Model danych**
-- **Etap 2:** Implementacja klas modelu
+### **Krzysztof Katana**
+- **Etap 2:** Implementacja klas modelu ✅
     - Klasy: `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`
     - Zastosowanie dziedziczenia i hermetyzacji
     - Implementacja metod `toString()`, `equals()` i `hashCode()`
@@ -166,8 +256,8 @@ CafeControl/
 
 ---
 
-### **Członek zespołu – Moduł zamówień i płatności**
-- **Etap 3:** Logika zamówień i obsługa wyjątków
+### **Maciej Stefaniuk**
+- **Etap 3:** Logika zamówień i obsługa wyjątków ✅
     - Klasy: `Order`, `OrderItem`, `Payment`
     - Enum: `OrderStatus`
     - Zastosowanie kolekcji do przechowywania pozycji zamówienia
@@ -175,7 +265,7 @@ CafeControl/
 
 ---
 
-### **Członek zespołu – Interfejs użytkownika**
+### **Maciej Stefaniuk**
 - **Etap 4:** Warstwa interakcji z użytkownikiem
     - Klasy: `Main`, `MenuManager`
     - Obsługa wejścia z klawiatury (Scanner)
@@ -184,11 +274,13 @@ CafeControl/
 
 ---
 
-### **Członek zespołu – Funkcje rozszerzone**
+### **Eryk Możdżyński**
 - **Etap 5:** Dodatkowe funkcjonalności i sortowanie
     - Zaimplementowanie `Comparable` i `Comparator`
     - Dodanie metody generycznej do sortowania obiektów
     - Zastosowanie `enum` w co najmniej jednej klasie
     - Dodanie metod i pól statycznych w wybranych klasach
+
+---
 
 ---

@@ -1,8 +1,38 @@
 package order;
 
+/**
+ * Enum reprezentujący status zamówienia
+ */
 public enum OrderStatus {
-    NEW,
-    IN_PROGRESS,
-    COMPLETED,
-    CANCELLED
+    NEW("Nowe", "Zamówienie zostało utworzone"),
+    IN_PROGRESS("W trakcie realizacji", "Zamówienie jest przygotowywane"),
+    READY("Gotowe", "Zamówienie jest gotowe do odbioru"),
+    COMPLETED("Zakończone", "Zamówienie zostało zrealizowane i odebrane"),
+    CANCELLED("Anulowane", "Zamówienie zostało anulowane");
+    
+    private String displayName;
+    private String description;
+    
+    /**
+     * Konstruktor enum OrderStatus
+     * @param displayName nazwa wyświetlana
+     * @param description opis statusu
+     */
+    OrderStatus(String displayName, String description) {
+        this.displayName = displayName;
+        this.description = description;
+    }
+    
+    public String getDisplayName() {
+        return displayName;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    @Override
+    public String toString() {
+        return displayName;
+    }
 }

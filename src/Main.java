@@ -26,7 +26,7 @@ public class Main implements IUserInterface, IOrderHandler {
     }
     
     public static void main(String[] args) {
-        System.out.println("☕ ════════════════════════════════════════════════");
+        System.out.println("════════════════════════════════════════════════");
         System.out.println("   Witamy w systemie CafeControl");
         System.out.println("   System zarządzania kawiarnią");
         System.out.println("════════════════════════════════════════════════\n");
@@ -107,7 +107,7 @@ public class Main implements IUserInterface, IOrderHandler {
                 } else if (choice == 4) {
                     showStatistics();
                 } else if (choice == 0) {
-                    System.out.println("\n☕ Dziękujemy za skorzystanie z CafeControl!");
+                    System.out.println("\nDziękujemy za skorzystanie z CafeControl!");
                     System.out.println("Do zobaczenia!\n");
                     running = false;
                 } else {
@@ -341,7 +341,7 @@ public class Main implements IUserInterface, IOrderHandler {
         System.out.println("║          MENU KAWIARNI                   ║");
         System.out.println("╚══════════════════════════════════════════╝");
         
-        System.out.println("\n☕ NAPOJE:");
+        System.out.println("\nNAPOJE:");
         System.out.println("────────────────────────────────────────────");
         for (Product p : menu) { // UPCASTING: Drink/Food traktowane jako Product
             if (p instanceof Drink) { // Sprawdzenie typu przed downcastingiem
@@ -352,7 +352,7 @@ public class Main implements IUserInterface, IOrderHandler {
             }
         }
         
-        System.out.println("\n🍰 JEDZENIE:");
+        System.out.println("\nJEDZENIE:");
         System.out.println("────────────────────────────────────────────");
         for (Product p : menu) { // UPCASTING
             if (p instanceof Food) { // Sprawdzenie typu przed downcastingiem
@@ -394,7 +394,7 @@ public class Main implements IUserInterface, IOrderHandler {
         System.out.println("║          STATYSTYKI SYSTEMU              ║");
         System.out.println("╚══════════════════════════════════════════╝");
         
-        System.out.println("\n📊 Ogólne:");
+        System.out.println("\nOgólne:");
         System.out.println("  • Łączna liczba zamówień: " + Order.getTotalOrders());
         System.out.println("  • Zamówienia w historii: " + orderHistory.size());
         System.out.println("  • Liczba klientów: " + Customer.getTotalCustomers());
@@ -409,7 +409,7 @@ public class Main implements IUserInterface, IOrderHandler {
                 totalItems += order.getTotalQuantity();
             }
             
-            System.out.println("\n💰 Przychody:");
+            System.out.println("\nPrzychody:");
             System.out.println("  • Łączny przychód: " + formatPrice(totalRevenue) + " zł");
             System.out.println("  • Średnia wartość zamówienia: " + formatPrice(totalRevenue / orderHistory.size()) + " zł");
             System.out.println("  • Łączna liczba sprzedanych produktów: " + totalItems);

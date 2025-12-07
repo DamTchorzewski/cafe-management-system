@@ -74,7 +74,7 @@ public class MenuManager {
      * Wyświetla tylko napoje
      */
     public void showDrinks() {
-        System.out.println("\n☕ NAPOJE:");
+        System.out.println("\nNAPOJE:");
         System.out.println("────────────────────────────────────────────");
         for (Product p : products) {
             if (p instanceof Drink) {
@@ -87,7 +87,7 @@ public class MenuManager {
      * Wyświetla tylko jedzenie
      */
     public void showFood() {
-        System.out.println("\n🍰 JEDZENIE:");
+        System.out.println("\nJEDZENIE:");
         System.out.println("────────────────────────────────────────────");
         for (Product p : products) {
             if (p instanceof Food) {

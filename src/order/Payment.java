@@ -3,6 +3,7 @@ package order;
 import exception.InvalidOrderException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 /**
  * Klasa reprezentująca płatność za zamówienie.
@@ -10,9 +11,6 @@ import java.text.SimpleDateFormat;
  * Przechowuje informacje o kwocie, dacie płatności i powiązanym zamówieniu.
  * Wykorzystuje pole statyczne do śledzenia łącznej liczby płatności.
  */
-import java.util.Objects;
-
-
 public class Payment {
     private double amount;
     private boolean isPaid;
@@ -175,8 +173,14 @@ public class Payment {
     public String toString() {
         String status = isPaid ? "Opłacone" : "Nieopłacone";
         String method = paymentMethod != null ? paymentMethod.getDisplayName() : "Nie wybrano";
-        return String.format("Payment{kwota=%.2f zł, status=%s, metoda=%s, data=%s}", 
-                           amount, status, method, getFormattedPaymentDate());
+        return "Payment{kwota=" + formatPrice(amount) + " zł, status=" + status + ", metoda=" + method + ", data=" + getFormattedPaymentDate() + "}";
+    }
+    
+    private String formatPrice(double price) {
+        long cents = Math.round(price * 100);
+        long zloty = cents / 100;
+        long grosze = cents % 100;
+        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
     
     @Override

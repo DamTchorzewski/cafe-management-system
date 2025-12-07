@@ -10,8 +10,6 @@ import java.util.List;
  * Obsługuje sortowanie zarówno dla obiektów implementujących Comparable,
  * jak i z wykorzystaniem zewnętrznych obiektów Comparator.
  */
-
-
 public class SortUtils {
     
     /**

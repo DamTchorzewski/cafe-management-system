@@ -92,7 +92,14 @@ public class Employee extends Person {
     @Override
     public String getInfo() {
         return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + 
-               ", pensja: " + String.format("%.2f", salary) + " zł, wiek: " + age;
+               ", pensja: " + formatSalary(salary) + " zł, wiek: " + age;
+    }
+    
+    private String formatSalary(double salary) {
+        long cents = Math.round(salary * 100);
+        long zloty = cents / 100;
+        long grosze = cents % 100;
+        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
 
     @Override

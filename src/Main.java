@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Main implements IUserInterface, IOrderHandler {
     private List<Order> orderHistory = new ArrayList<>();
     private List<Product> menu = new ArrayList<>();
@@ -99,26 +98,20 @@ public class Main implements IUserInterface, IOrderHandler {
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Czyści bufor
                 
-                switch (choice) {
-                    case 1:
-                        createOrder();
-                        break;
-                    case 2:
-                        showMenu();
-                        break;
-                    case 3:
-                        showOrderHistory();
-                        break;
-                    case 4:
-                        showStatistics();
-                        break;
-                    case 0:
-                        System.out.println("\n☕ Dziękujemy za skorzystanie z CafeControl!");
-                        System.out.println("Do zobaczenia!\n");
-                        running = false;
-                        break;
-                    default:
-                        System.out.println("\n[BŁĄD] Nieprawidłowa opcja. Spróbuj ponownie.");
+                if (choice == 1) {
+                    createOrder();
+                } else if (choice == 2) {
+                    showMenu();
+                } else if (choice == 3) {
+                    showOrderHistory();
+                } else if (choice == 4) {
+                    showStatistics();
+                } else if (choice == 0) {
+                    System.out.println("\n☕ Dziękujemy za skorzystanie z CafeControl!");
+                    System.out.println("Do zobaczenia!\n");
+                    running = false;
+                } else {
+                    System.out.println("\n[BŁĄD] Nieprawidłowa opcja. Spróbuj ponownie.");
                 }
             } catch (Exception e) {
                 System.out.println("\n[BŁĄD] Nieprawidłowe dane wejściowe. Wprowadź numer opcji.");
@@ -174,29 +167,23 @@ public class Main implements IUserInterface, IOrderHandler {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
                 
-                switch (choice) {
-                    case 1:
-                        addProductToOrder();
-                        break;
-                    case 2:
-                        removeProductFromOrder();
-                        break;
-                    case 3:
-                        System.out.println("\n" + currentOrder.getOrderDetails());
-                        break;
-                    case 4:
-                        if (finalizeOrder()) {
-                            addingProducts = false;
-                        }
-                        break;
-                    case 0:
-                        currentOrder.cancel();
-                        System.out.println("\n✓ Zamówienie anulowane");
-                        currentOrder = null;
+                if (choice == 1) {
+                    addProductToOrder();
+                } else if (choice == 2) {
+                    removeProductFromOrder();
+                } else if (choice == 3) {
+                    System.out.println("\n" + currentOrder.getOrderDetails());
+                } else if (choice == 4) {
+                    if (finalizeOrder()) {
                         addingProducts = false;
-                        break;
-                    default:
-                        System.out.println("\n[BŁĄD] Nieprawidłowa opcja");
+                    }
+                } else if (choice == 0) {
+                    currentOrder.cancel();
+                    System.out.println("\n✓ Zamówienie anulowane");
+                    currentOrder = null;
+                    addingProducts = false;
+                } else {
+                    System.out.println("\n[BŁĄD] Nieprawidłowa opcja");
                 }
             }
         } catch (InvalidOrderException e) {
@@ -299,14 +286,17 @@ public class Main implements IUserInterface, IOrderHandler {
             scanner.nextLine();
             
             PaymentMethod method;
-            switch (paymentChoice) {
-                case 1: method = PaymentMethod.CASH; break;
-                case 2: method = PaymentMethod.CARD; break;
-                case 3: method = PaymentMethod.MOBILE; break;
-                case 4: method = PaymentMethod.VOUCHER; break;
-                default:
-                    System.out.println("\n[BŁĄD] Nieprawidłowa metoda płatności");
-                    return false;
+            if (paymentChoice == 1) {
+                method = PaymentMethod.CASH;
+            } else if (paymentChoice == 2) {
+                method = PaymentMethod.CARD;
+            } else if (paymentChoice == 3) {
+                method = PaymentMethod.MOBILE;
+            } else if (paymentChoice == 4) {
+                method = PaymentMethod.VOUCHER;
+            } else {
+                System.out.println("\n[BŁĄD] Nieprawidłowa metoda płatności");
+                return false;
             }
             
             // Tworzenie i przetwarzanie płatności
@@ -420,8 +410,8 @@ public class Main implements IUserInterface, IOrderHandler {
             }
             
             System.out.println("\n💰 Przychody:");
-            System.out.println("  • Łączny przychód: " + String.format("%.2f", totalRevenue) + " zł");
-            System.out.println("  • Średnia wartość zamówienia: " + String.format("%.2f", totalRevenue / orderHistory.size()) + " zł");
+            System.out.println("  • Łączny przychód: " + formatPrice(totalRevenue) + " zł");
+            System.out.println("  • Średnia wartość zamówienia: " + formatPrice(totalRevenue / orderHistory.size()) + " zł");
             System.out.println("  • Łączna liczba sprzedanych produktów: " + totalItems);
         }
         
@@ -487,5 +477,17 @@ public class Main implements IUserInterface, IOrderHandler {
             System.out.println("Stanowisko: " + employee.getPosition());
             System.out.println("Pensja: " + employee.getSalary() + " zł");
         }
+    }
+    
+    /**
+     * Formatuje cenę z dokładnością do 2 miejsc po przecinku
+     * @param price cena do sformatowania
+     * @return sformatowana cena jako String
+     */
+    private String formatPrice(double price) {
+        long cents = Math.round(price * 100);
+        long zloty = cents / 100;
+        long grosze = cents % 100;
+        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
 }

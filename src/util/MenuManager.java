@@ -3,6 +3,9 @@ package util;
 import model.Drink;
 import model.Food;
 import model.Product;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Klasa narzędziowa do zarządzania menu kawiarni.
@@ -10,11 +13,6 @@ import model.Product;
  * Wykorzystuje interfejs Comparator (z anonimowymi klasami) do sortowania produktów
  * według różnych kryteriów (nazwa, cena).
  */
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-
 public class MenuManager {
     private List<Product> products;
     

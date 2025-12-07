@@ -3,6 +3,11 @@ package order;
 import model.Customer;
 import model.Product;
 import exception.InvalidOrderException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Klasa reprezentująca zamówienie w systemie kawiarni.
@@ -10,13 +15,6 @@ import exception.InvalidOrderException;
  * Zarządza pozycjami zamówienia, oblicza całkowitą wartość i obsługuje statusy zamówienia.
  * Wykorzystuje pole statyczne do generowania unikalnych identyfikatorów zamówień.
  */
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-
 public class Order implements Comparable<Order> {
     private int orderId;
     private Customer customer;
@@ -282,11 +280,21 @@ public class Order implements Comparable<Order> {
     public String getOrderDetails() {
         StringBuilder sb = new StringBuilder();
         sb.append("╔════════════════════════════════════════════════════╗\n");
-        sb.append(String.format("║ Zamówienie #%d%n", orderId));
+        sb.append("║ Zamówienie #");
+        sb.append(orderId);
+        sb.append("\n");
         sb.append("╚════════════════════════════════════════════════════╝\n");
-        sb.append(String.format("Klient: %s (ID: %d)%n", customer.getName(), customer.getCustomerId()));
-        sb.append(String.format("Data: %s%n", getFormattedOrderDate()));
-        sb.append(String.format("Status: %s%n", status.getDisplayName()));
+        sb.append("Klient: ");
+        sb.append(customer.getName());
+        sb.append(" (ID: ");
+        sb.append(customer.getCustomerId());
+        sb.append(")\n");
+        sb.append("Data: ");
+        sb.append(getFormattedOrderDate());
+        sb.append("\n");
+        sb.append("Status: ");
+        sb.append(status.getDisplayName());
+        sb.append("\n");
         sb.append("\nPozycje zamówienia:\n");
         sb.append("────────────────────────────────────────────────────\n");
         
@@ -294,27 +302,44 @@ public class Order implements Comparable<Order> {
             sb.append("  (brak pozycji)\n");
         } else {
             for (int i = 0; i < items.size(); i++) {
-                sb.append(String.format("  %d. %s%n", i + 1, items.get(i)));
+                sb.append("  ");
+                sb.append(i + 1);
+                sb.append(". ");
+                sb.append(items.get(i));
+                sb.append("\n");
             }
         }
         
         sb.append("────────────────────────────────────────────────────\n");
-        sb.append(String.format("SUMA: %.2f zł%n", calculateTotal()));
+        sb.append("SUMA: ");
+        sb.append(formatPrice(calculateTotal()));
+        sb.append(" zł\n");
         
         if (payment != null) {
-            sb.append(String.format("Płatność: %s%n", payment.isPaid() ? "Opłacone" : "Nieopłacone"));
+            sb.append("Płatność: ");
+            sb.append(payment.isPaid() ? "Opłacone" : "Nieopłacone");
+            sb.append("\n");
             if (payment.getPaymentMethod() != null) {
-                sb.append(String.format("Metoda: %s%n", payment.getPaymentMethod().getDisplayName()));
+                sb.append("Metoda: ");
+                sb.append(payment.getPaymentMethod().getDisplayName());
+                sb.append("\n");
             }
         }
         
         return sb.toString();
     }
     
+    private String formatPrice(double price) {
+        long cents = Math.round(price * 100);
+        long zloty = cents / 100;
+        long grosze = cents % 100;
+        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
+    }
+    
     @Override
     public String toString() {
-        return String.format("Order{ID=%d, klient=%s, pozycji=%d, status=%s, suma=%.2f zł}", 
-                           orderId, customer.getName(), items.size(), status, calculateTotal());
+        return "Order{ID=" + orderId + ", klient=" + customer.getName() + ", pozycji=" + items.size() + 
+               ", status=" + status + ", suma=" + formatPrice(calculateTotal()) + " zł}";
     }
     
     @Override

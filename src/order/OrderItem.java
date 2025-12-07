@@ -9,8 +9,6 @@ import java.util.Objects;
  * Łączy produkt z ilością i oblicza wartość częściową pozycji.
  * Zawiera walidację ilości i rzuca własny wyjątek InvalidOrderException w przypadku błędnych danych.
  */
-
-
 public class OrderItem {
     private Product product;
     private int quantity;
@@ -92,8 +90,14 @@ public class OrderItem {
     
     @Override
     public String toString() {
-        return String.format("%dx %s - %.2f zł (razem: %.2f zł)", 
-                           quantity, product.getName(), product.getPrice(), getTotalPrice());
+        return quantity + "x " + product.getName() + " - " + formatPrice(product.getPrice()) + " zł (razem: " + formatPrice(getTotalPrice()) + " zł)";
+    }
+    
+    private String formatPrice(double price) {
+        long cents = Math.round(price * 100);
+        long zloty = cents / 100;
+        long grosze = cents % 100;
+        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
     
     @Override

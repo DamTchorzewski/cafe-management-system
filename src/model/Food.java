@@ -45,9 +45,7 @@ public class Food extends Product {
     @Override
     public String getDescription() {
         String vegInfo = isVegetarian ? "[WEGE]" : "";
-
         return name + " " + vegInfo + " (" + weightInGrams + "g) - " + price + " zł";
-
     }
 
     @Override

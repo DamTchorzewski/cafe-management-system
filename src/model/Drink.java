@@ -45,10 +45,7 @@ public class Drink extends Product {
     @Override
     public String getDescription() {
         String temperature = isHot ? "gorący" : "zimny";
-
         return name + " (" + temperature + ", " + volumeInMl + "ml) - " + price + " zł";
-
-
     }
 
     @Override

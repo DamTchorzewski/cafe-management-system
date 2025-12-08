@@ -80,21 +80,12 @@ public class Employee extends Person {
 
     @Override
     public String getInfo() {
-
-        return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + ", pensja: " + salary + " zł, wiek: " + age;
-
+        return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + ", pensja: " + salary + " zł";
     }
 
     @Override
     public String toString() {
-
-
-        return "Employee{" +
-                "employeeId=" + employeeId +
-                ", name='" + name + '\'' +
-                ", position='" + position + '\'' +
-                ", salary=" + salary +
-                '}';
+        return "Employee{" + "employeeId=" + employeeId + ", name=" + name + ", position=" + position + ", salary=" + salary + '}';
     }
 
     @Override

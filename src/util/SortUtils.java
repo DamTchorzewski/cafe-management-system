@@ -7,22 +7,9 @@ import java.util.List;
 /**
  * Klasa narzędziowa zawierająca generyczne metody sortowania.
  * Demonstruje zastosowanie typów generycznych z ograniczeniami (bounded types).
- * Obsługuje sortowanie zarówno dla obiektów implementujących Comparable,
- * jak i z wykorzystaniem zewnętrznych obiektów Comparator.
+ * Obsługuje sortowanie z wykorzystaniem zewnętrznych obiektów Comparator.
  */
 public class SortUtils {
-    
-    /**
-     * Sortuje listę obiektów używając naturalnego porządku (Comparable)
-     * @param <T> typ obiektów implementujących Comparable
-     * @param list lista do posortowania
-     */
-    public static <T extends Comparable<T>> void sortList(List<T> list) {
-        if (list == null || list.isEmpty()) {
-            return;
-        }
-        Collections.sort(list);
-    }
     
     /**
      * Sortuje listę obiektów używając dostarczonego Comparatora
@@ -35,17 +22,5 @@ public class SortUtils {
             return;
         }
         Collections.sort(list, comparator);
-    }
-    
-    /**
-     * Sortuje listę w odwrotnej kolejności naturalnego porządku
-     * @param <T> typ obiektów implementujących Comparable
-     * @param list lista do posortowania
-     */
-    public static <T extends Comparable<T>> void sortListReversed(List<T> list) {
-        if (list == null || list.isEmpty()) {
-            return;
-        }
-        Collections.sort(list, Collections.reverseOrder());
     }
 }

@@ -15,21 +15,19 @@ public class Customer extends Person {
     /**
      * Konstruktor klasy Customer
      * @param name imię klienta
-     * @param age wiek klienta
      */
-    public Customer(String name, int age) {
-        super(name, age);
+    public Customer(String name) {
+        super(name);
         this.customerId = nextId++;
     }
 
     /**
      * Konstruktor z określonym ID (do testów)
      * @param name imię klienta
-     * @param age wiek klienta
      * @param customerId ID klienta
      */
-    public Customer(String name, int age, int customerId) {
-        super(name, age);
+    public Customer(String name, int customerId) {
+        super(name);
         this.customerId = customerId;
         if (customerId >= nextId) {
             nextId = customerId + 1;
@@ -55,16 +53,12 @@ public class Customer extends Person {
 
     @Override
     public String getInfo() {
-        return "Klient: " + name + " (ID: " + customerId + "), wiek: " + age;
+        return "Klient: " + name + " (ID: " + customerId + ")";
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+        return "Customer{" + "customerId=" + customerId + ", name=" + name + '}';
     }
 
     @Override

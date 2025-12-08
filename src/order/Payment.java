@@ -1,8 +1,6 @@
 package order;
 
 import exception.InvalidOrderException;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 /**
@@ -15,7 +13,6 @@ public class Payment {
     private double amount;
     private boolean isPaid;
     private PaymentMethod paymentMethod;
-    private Date paymentDate;
     private static int totalPayments = 0; // Statyczne pole do liczenia płatności
     
     /**
@@ -55,7 +52,6 @@ public class Payment {
         this.amount = amount;
         this.isPaid = false;
         this.paymentMethod = null;
-        this.paymentDate = null;
     }
     
     /**
@@ -71,7 +67,6 @@ public class Payment {
         this.amount = amount;
         this.isPaid = false;
         this.paymentMethod = paymentMethod;
-        this.paymentDate = null;
     }
     
     // Gettery i settery
@@ -98,10 +93,6 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
     
-    public Date getPaymentDate() {
-        return paymentDate;
-    }
-    
     /**
      * Statyczna metoda zwracająca liczbę zrealizowanych płatności
      * @return liczba płatności
@@ -124,7 +115,6 @@ public class Payment {
         }
         this.isPaid = true;
         this.paymentMethod = paymentMethod;
-        this.paymentDate = new Date();
         totalPayments++;
     }
     
@@ -140,7 +130,6 @@ public class Payment {
             throw new InvalidOrderException("Nie wybrano metody płatności");
         }
         this.isPaid = true;
-        this.paymentDate = new Date();
         totalPayments++;
     }
     
@@ -153,33 +142,20 @@ public class Payment {
             throw new InvalidOrderException("Nie można anulować niezrealizowanej płatności");
         }
         this.isPaid = false;
-        this.paymentDate = null;
         totalPayments--;
-    }
-    
-    /**
-     * Zwraca sformatowaną datę płatności
-     * @return data płatności jako String
-     */
-    public String getFormattedPaymentDate() {
-        if (paymentDate == null) {
-            return "Brak";
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return formatter.format(paymentDate);
     }
     
     @Override
     public String toString() {
         String status = isPaid ? "Opłacone" : "Nieopłacone";
         String method = paymentMethod != null ? paymentMethod.getDisplayName() : "Nie wybrano";
-        return "Payment{kwota=" + formatPrice(amount) + " zł, status=" + status + ", metoda=" + method + ", data=" + getFormattedPaymentDate() + "}";
+        return "Payment{kwota=" + formatPrice(amount) + " zł, status=" + status + ", metoda=" + method + "}";
     }
     
     private String formatPrice(double price) {
-        long cents = Math.round(price * 100);
-        long zloty = cents / 100;
-        long grosze = cents % 100;
+        int cents = (int)(price * 100 + 0.5);
+        int zloty = cents / 100;
+        int grosze = cents % 100;
         return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
     

@@ -60,9 +60,7 @@ Zespół projektowy  – Programowanie w Javie
 - ✅ **OrderStatus** (enum) - statusy zamówień (5 stanów)
 
 #### Moduł Narzędzi (`util/`)
-- ✅ **SortUtils** - metody generyczne do sortowania (Comparable + Comparator)
-- ✅ **MenuManager** - zarządzanie menu, filtrowanie, sortowanie produktów
-
+- ✅ **ArrayUtils** - metody generyczne do operacji na tablicach
 
 #### Moduł Interfejsów (`interfaces/`)
 - ✅ **IUserInterface** - interfejs dla obsługi UI
@@ -76,9 +74,10 @@ Zespół projektowy  – Programowanie w Javie
 - ✅ Interaktywne menu z obsługą Scanner
 - ✅ Tworzenie i zarządzanie zamówieniami
 - ✅ Wyświetlanie menu kawiarni (16 produktów)
-- ✅ Historia zamówień
+- ✅ Historia zamówień z sortowaniem (Comparable i Comparator)
 - ✅ Statystyki sprzedaży i przychodów
 - ✅ Demonstracja polimorfizmu, upcasting i downcasting
+- ✅ Demonstracja funkcjonalności: tablice, metody generyczne, tworzenie obiektów
 
 
 ## 🧩 Założenia i wymagania projektowe
@@ -129,11 +128,10 @@ CafeControl/
 │   ├── interfaces/
 │   │   ├── IUserInterface.java
 │   │   └── IOrderHandler.java
-│   ├── exception/
-│   │   └── InvalidOrderException.java
-│   └── util/
-│       ├── MenuManager.java
-│       └── SortUtils.java
+│   ├── util/
+│   │   └── ArrayUtils.java
+│   └── exception/
+│       └── InvalidOrderException.java
 │
 ├── README.md
 └── .gitignore
@@ -218,17 +216,19 @@ java -cp src Main
 | 2 klasy abstrakcyjne | Person, Product | `model/` |
 | 2 metody abstrakcyjne | getInfo(), getDescription() | Person, Product |
 | 3 pętle | while, for, foreach | Main.java |
+| 3 tablice | String[], PaymentMethod[], String[] | PRODUCT_CATEGORIES, AVAILABLE_PAYMENT_METHODS, ORDER_STATUS_INFO |
 | 3 kolekcje | ArrayList×3 | orderHistory, menu, items |
-| 2 metody statyczne | getTotalCustomers(), getTotalOrders(), etc. | Customer, Order, Payment |
+| 2 metody statyczne | getTotalCustomers(), getTotalOrders(), getTotalPayments() | Customer, Order, Payment |
 | 2 pola statyczne | nextId, totalPayments | Wiele klas |
 | Własny wyjątek | InvalidOrderException | `exception/` |
 | Hermetyzacja | Wszystkie pola private/protected | Wszystkie klasy |
 | toString() ≥3 | We wszystkich klasach | Cały projekt |
 | equals() i hashCode() | We wszystkich klasach | Cały projekt |
 | Interfejsy | IUserInterface, IOrderHandler | `interfaces/` + Main |
-| Sortowanie | Comparable + Comparator | Order, SortUtils |
-| Metoda generyczna | sortList<T> | SortUtils |
-| Upcasting/downcasting | W showMenu(), demonstratePolymorphism() | Main.java |
+| Sortowanie | Comparable + Comparator | Order.compareTo() + showOrderHistory() |
+| Metoda generyczna | countInArray<T>() | ArrayUtils |
+| Upcasting/downcasting | W showMenu() | Main.java |
+| Tworzenie >= 2 obiektów | We wszystkich klasach | demonstrateFunctionality() |
 | Kolekcje | ArrayList | Cały projekt |
 | Enumy | OrderStatus, PaymentMethod | `order/` |
 | Interaktywność | Scanner | Main.java |

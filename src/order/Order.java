@@ -3,15 +3,13 @@ package order;
 import model.Customer;
 import model.Product;
 import exception.InvalidOrderException;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Klasa reprezentująca zamówienie w systemie kawiarni.
- * Implementuje interfejs Comparable<Order> do umożliwienia sortowania zamówień według daty.
+ * Implementuje interfejs Comparable<Order> do umożliwienia sortowania zamówień według ID.
  * Zarządza pozycjami zamówienia, oblicza całkowitą wartość i obsługuje statusy zamówienia.
  * Wykorzystuje pole statyczne do generowania unikalnych identyfikatorów zamówień.
  */
@@ -21,7 +19,6 @@ public class Order implements Comparable<Order> {
     private List<OrderItem> items;
     private OrderStatus status;
     private Payment payment;
-    private Date orderDate;
     private static int nextOrderId = 1; // Statyczne pole do automatycznej numeracji
     
     /**
@@ -37,7 +34,6 @@ public class Order implements Comparable<Order> {
         this.customer = customer;
         this.items = new ArrayList<>();
         this.status = OrderStatus.NEW;
-        this.orderDate = new Date();
         this.payment = null;
     }
     
@@ -55,7 +51,6 @@ public class Order implements Comparable<Order> {
         this.customer = customer;
         this.items = new ArrayList<>();
         this.status = OrderStatus.NEW;
-        this.orderDate = new Date();
         this.payment = null;
         if (orderId >= nextOrderId) {
             nextOrderId = orderId + 1;
@@ -95,10 +90,6 @@ public class Order implements Comparable<Order> {
     
     public Payment getPayment() {
         return payment;
-    }
-    
-    public Date getOrderDate() {
-        return orderDate;
     }
     
     /**
@@ -265,15 +256,6 @@ public class Order implements Comparable<Order> {
     }
     
     /**
-     * Zwraca sformatowaną datę zamówienia
-     * @return data zamówienia jako String
-     */
-    public String getFormattedOrderDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return formatter.format(orderDate);
-    }
-    
-    /**
      * Zwraca szczegółowe informacje o zamówieniu
      * @return String ze szczegółami zamówienia
      */
@@ -289,9 +271,6 @@ public class Order implements Comparable<Order> {
         sb.append(" (ID: ");
         sb.append(customer.getCustomerId());
         sb.append(")\n");
-        sb.append("Data: ");
-        sb.append(getFormattedOrderDate());
-        sb.append("\n");
         sb.append("Status: ");
         sb.append(status.getDisplayName());
         sb.append("\n");
@@ -330,9 +309,9 @@ public class Order implements Comparable<Order> {
     }
     
     private String formatPrice(double price) {
-        long cents = Math.round(price * 100);
-        long zloty = cents / 100;
-        long grosze = cents % 100;
+        int cents = (int)(price * 100 + 0.5);
+        int zloty = cents / 100;
+        int grosze = cents % 100;
         return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
     
@@ -356,13 +335,13 @@ public class Order implements Comparable<Order> {
     }
     
     /**
-     * Porównuje zamówienia po dacie zamówienia (od najstarszego do najnowszego)
+     * Porównuje zamówienia po ID zamówienia (od najmniejszego do największego)
      * Implementacja interfejsu Comparable
      * @param other drugie zamówienie do porównania
-     * @return wartość ujemna jeśli to zamówienie jest starsze, 0 jeśli równe, dodatnia jeśli nowsze
+     * @return wartość ujemna jeśli to zamówienie ma mniejsze ID, 0 jeśli równe, dodatnia jeśli większe
      */
     @Override
     public int compareTo(Order other) {
-        return this.orderDate.compareTo(other.orderDate);
+        return Integer.compare(this.orderId, other.orderId);
     }
 }

@@ -45,24 +45,12 @@ public class Drink extends Product {
     @Override
     public String getDescription() {
         String temperature = isHot ? "gorący" : "zimny";
-        return name + " (" + temperature + ", " + volumeInMl + "ml) - " + formatPrice(price) + " zł";
-    }
-    
-    private String formatPrice(double price) {
-        long cents = Math.round(price * 100);
-        long zloty = cents / 100;
-        long grosze = cents % 100;
-        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
+        return name + " (" + temperature + ", " + volumeInMl + "ml) - " + price + " zł";
     }
 
     @Override
     public String toString() {
-        return "Drink{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", isHot=" + isHot +
-                ", volumeInMl=" + volumeInMl +
-                '}';
+        return "Drink{" + "name=" + name + ", price=" + price + ", isHot=" + isHot + ", volumeInMl=" + volumeInMl + '}';
     }
 
     @Override

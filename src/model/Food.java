@@ -45,24 +45,14 @@ public class Food extends Product {
     @Override
     public String getDescription() {
         String vegInfo = isVegetarian ? "[WEGE]" : "";
-        return name + " " + vegInfo + " (" + weightInGrams + "g) - " + formatPrice(price) + " zł";
-    }
-    
-    private String formatPrice(double price) {
-        int cents = (int)(price * 100 + 0.5);
-        int zloty = cents / 100;
-        int grosze = cents % 100;
-        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
+
+        return name + " " + vegInfo + " (" + weightInGrams + "g) - " + price + " zł";
+
     }
 
     @Override
     public String toString() {
-        return "Food{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", isVegetarian=" + isVegetarian +
-                ", weightInGrams=" + weightInGrams +
-                '}';
+        return "Food{" + "name=" + name + ", price=" + price + ", isVegetarian=" + isVegetarian + ", weightInGrams=" + weightInGrams + '}';
     }
 
     @Override

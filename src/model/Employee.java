@@ -80,19 +80,15 @@ public class Employee extends Person {
 
     @Override
     public String getInfo() {
-        return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + 
-               ", pensja: " + formatSalary(salary) + " zł";
-    }
-    
-    private String formatSalary(double salary) {
-        int cents = (int)(salary * 100 + 0.5);
-        int zloty = cents / 100;
-        int grosze = cents % 100;
-        return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
+
+        return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + ", pensja: " + salary + " zł, wiek: " + age;
+
     }
 
     @Override
     public String toString() {
+
+
         return "Employee{" +
                 "employeeId=" + employeeId +
                 ", name='" + name + '\'' +

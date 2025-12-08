@@ -240,6 +240,7 @@ java -cp src Main
 
 ### **Damian Tchorzewski**
 - **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub) ✅
+- - Klasy: `Main`
     - Utworzenie pełnej struktury katalogów i pustych klas
     - Inicjalizacja repozytorium i README.md
 - **Etap 6:** Testy końcowe i dokumentacja
@@ -274,7 +275,6 @@ java -cp src Main
 
 ### **Maciej Stefaniuk**
 - **Etap 4:** Warstwa interakcji z użytkownikiem ✅
-    - Klasy: `Main`, `MenuManager`
     - Obsługa wejścia z klawiatury (Scanner)
     - Implementacja prostego menu, pętli i komunikatów w konsoli
     - Integracja modułów: model + zamówienia

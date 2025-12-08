@@ -226,7 +226,7 @@ java -cp src Main
 | equals() i hashCode() | We wszystkich klasach | Cały projekt |
 | Interfejsy | IUserInterface, IOrderHandler | `interfaces/` + Main |
 | Sortowanie | Comparable + Comparator | Order.compareTo() + showOrderHistory() |
-| Metoda generyczna | findInArray<T>(), countInArray<T>() | ArrayUtils |
+| Metoda generyczna | countInArray<T>() | ArrayUtils |
 | Upcasting/downcasting | W showMenu() | Main.java |
 | Tworzenie >= 2 obiektów | We wszystkich klasach | demonstrateFunctionality() |
 | Kolekcje | ArrayList | Cały projekt |

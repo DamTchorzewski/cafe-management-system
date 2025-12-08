@@ -296,13 +296,6 @@ public class Main implements IUserInterface, IOrderHandler {
             
             PaymentMethod method = AVAILABLE_PAYMENT_METHODS[paymentChoice - 1];
             
-            // Użycie metody generycznej do weryfikacji
-            int methodIndex = ArrayUtils.findInArray(AVAILABLE_PAYMENT_METHODS, method);
-            if (methodIndex == -1) {
-                System.out.println("\n[BŁĄD] Metoda płatności nie jest dostępna");
-                return false;
-            }
-            
             // Tworzenie i przetwarzanie płatności
             currentOrder.createPayment(method);
             currentOrder.getPayment().processPayment();
@@ -522,22 +515,15 @@ public class Main implements IUserInterface, IOrderHandler {
         }
         
         // Demonstracja metod generycznych
-        System.out.println("\n=== UŻYCIE METOD GENERYCZNYCH ===");
-        
-        PaymentMethod searchMethod = PaymentMethod.CARD;
-        int index = ArrayUtils.findInArray(AVAILABLE_PAYMENT_METHODS, searchMethod);
-        System.out.println("\nWyszukiwanie metody płatności 'CARD':");
-        System.out.println("  Znaleziono na indeksie: " + index);
-        System.out.println("  Metoda: " + AVAILABLE_PAYMENT_METHODS[index].getDisplayName());
+        System.out.println("\n=== UŻYCIE METODY GENERYCZNEJ ===");
         
         int count = ArrayUtils.countInArray(AVAILABLE_PAYMENT_METHODS, PaymentMethod.CASH);
-        System.out.println("\nLiczenie wystąpień 'CASH' w tablicy:");
+        System.out.println("\nLiczenie wystąpień 'CASH' w tablicy AVAILABLE_PAYMENT_METHODS:");
         System.out.println("  Liczba wystąpień: " + count);
         
-        String searchCategory = "Napoje";
-        int categoryIndex = ArrayUtils.findInArray(PRODUCT_CATEGORIES, searchCategory);
-        System.out.println("\nWyszukiwanie kategorii 'Napoje':");
-        System.out.println("  Znaleziono na indeksie: " + categoryIndex);
+        int categoryCount = ArrayUtils.countInArray(PRODUCT_CATEGORIES, "Napoje");
+        System.out.println("\nLiczenie wystąpień 'Napoje' w tablicy PRODUCT_CATEGORIES:");
+        System.out.println("  Liczba wystąpień: " + categoryCount);
         
         System.out.println("\n=== KONIEC DEMONSTRACJI ===\n");
     }

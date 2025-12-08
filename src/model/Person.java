@@ -10,16 +10,13 @@ import java.util.Objects;
 
 public abstract class Person {
     protected String name;
-    protected int age;
 
     /**
      * Konstruktor klasy Person
      * @param name imię osoby
-     * @param age wiek osoby
      */
-    public Person(String name, int age) {
+    public Person(String name) {
         this.name = name;
-        this.age = age;
     }
 
     // Gettery i settery (hermetyzacja)
@@ -29,14 +26,6 @@ public abstract class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     /**
@@ -49,7 +38,6 @@ public abstract class Person {
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
-                ", age=" + age +
                 '}';
     }
 
@@ -58,11 +46,11 @@ public abstract class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return age == person.age && Objects.equals(name, person.name);
+        return Objects.equals(name, person.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age);
+        return Objects.hash(name);
     }
 }

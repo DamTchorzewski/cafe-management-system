@@ -17,12 +17,11 @@ public class Employee extends Person {
     /**
      * Konstruktor klasy Employee
      * @param name imię pracownika
-     * @param age wiek pracownika
      * @param position stanowisko pracownika
      * @param salary pensja pracownika
      */
-    public Employee(String name, int age, String position, double salary) {
-        super(name, age);
+    public Employee(String name, String position, double salary) {
+        super(name);
         this.employeeId = nextId++;
         this.position = position;
         this.salary = salary;
@@ -31,23 +30,21 @@ public class Employee extends Person {
     /**
      * Konstruktor bez pensji (domyślna 0)
      * @param name imię pracownika
-     * @param age wiek pracownika
      * @param position stanowisko pracownika
      */
-    public Employee(String name, int age, String position) {
-        this(name, age, position, 0.0);
+    public Employee(String name, String position) {
+        this(name, position, 0.0);
     }
 
     /**
      * Konstruktor z określonym ID (do testów)
      * @param name imię pracownika
-     * @param age wiek pracownika
      * @param position stanowisko pracownika
      * @param salary pensja pracownika
      * @param employeeId ID pracownika
      */
-    public Employee(String name, int age, String position, double salary, int employeeId) {
-        super(name, age);
+    public Employee(String name, String position, double salary, int employeeId) {
+        super(name);
         this.employeeId = employeeId;
         this.position = position;
         this.salary = salary;
@@ -81,24 +78,16 @@ public class Employee extends Person {
         this.salary = salary;
     }
 
-    /**
-     * Statyczna metoda zwracająca liczbę utworzonych pracowników
-     * @return liczba pracowników
-     */
-    public static int getTotalEmployees() {
-        return nextId - 1000;
-    }
-
     @Override
     public String getInfo() {
         return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + 
-               ", pensja: " + formatSalary(salary) + " zł, wiek: " + age;
+               ", pensja: " + formatSalary(salary) + " zł";
     }
     
     private String formatSalary(double salary) {
-        long cents = Math.round(salary * 100);
-        long zloty = cents / 100;
-        long grosze = cents % 100;
+        int cents = (int)(salary * 100 + 0.5);
+        int zloty = cents / 100;
+        int grosze = cents % 100;
         return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
 
@@ -107,7 +96,6 @@ public class Employee extends Person {
         return "Employee{" +
                 "employeeId=" + employeeId +
                 ", name='" + name + '\'' +
-                ", age=" + age +
                 ", position='" + position + '\'' +
                 ", salary=" + salary +
                 '}';

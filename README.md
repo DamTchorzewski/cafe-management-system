@@ -266,7 +266,7 @@ java -cp src Main
 ---
 
 ### **Maciej Stefaniuk**
-- **Etap 4:** Warstwa interakcji z użytkownikiem
+- **Etap 4:** Warstwa interakcji z użytkownikiem ✅
     - Klasy: `Main`, `MenuManager`
     - Obsługa wejścia z klawiatury (Scanner)
     - Implementacja prostego menu, pętli i komunikatów w konsoli
@@ -275,7 +275,7 @@ java -cp src Main
 ---
 
 ### **Eryk Możdżyński**
-- **Etap 5:** Dodatkowe funkcjonalności i sortowanie
+- **Etap 5:** Dodatkowe funkcjonalności i sortowanie ✅
     - Zaimplementowanie `Comparable` i `Comparator`
     - Dodanie metody generycznej do sortowania obiektów
     - Zastosowanie `enum` w co najmniej jednej klasie

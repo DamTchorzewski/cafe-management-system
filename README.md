@@ -194,6 +194,7 @@ CafeControl/
 - ✅ Weryfikacja wszystkich wymagań projektowych
 - Testy funkcjonalne wszystkich modułów (TestDemo.java)
 - ✅ Dokumentacja i komentarze w kodzie
+- 
 
 ---
 
@@ -253,6 +254,9 @@ java -cp src Main
     - Zastosowanie dziedziczenia i hermetyzacji
     - Implementacja metod `toString()`, `equals()` i `hashCode()`
     - Utworzenie przykładowych obiektów
+- **Etap 6:** Testy końcowe i dokumentacja
+    - Weryfikacja działania wszystkich modułów
+    - Przygotowanie końcowego README.md i dokumentacji projektu
 
 ---
 
@@ -262,6 +266,9 @@ java -cp src Main
     - Enum: `OrderStatus`
     - Zastosowanie kolekcji do przechowywania pozycji zamówienia
     - Obsługa błędów i wyjątek użytkownika `InvalidOrderException`
+- **Etap 6:** Testy końcowe i dokumentacja
+    - Weryfikacja działania wszystkich modułów
+    - Przygotowanie końcowego README.md i dokumentacji projektu
 
 ---
 
@@ -271,6 +278,9 @@ java -cp src Main
     - Obsługa wejścia z klawiatury (Scanner)
     - Implementacja prostego menu, pętli i komunikatów w konsoli
     - Integracja modułów: model + zamówienia
+- **Etap 6:** Testy końcowe i dokumentacja
+    - Weryfikacja działania wszystkich modułów
+    - Przygotowanie końcowego README.md i dokumentacji projektu
 
 ---
 
@@ -280,6 +290,9 @@ java -cp src Main
     - Dodanie metody generycznej do sortowania obiektów
     - Zastosowanie `enum` w co najmniej jednej klasie
     - Dodanie metod i pól statycznych w wybranych klasach
+ - **Etap 6:** Testy końcowe i dokumentacja
+    - Weryfikacja działania wszystkich modułów
+    - Przygotowanie końcowego README.md i dokumentacji projektu
 
 ---
 

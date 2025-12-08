@@ -10,7 +10,10 @@ import order.Payment.PaymentMethod;
 import exception.InvalidOrderException;
 import interfaces.IOrderHandler;
 import interfaces.IUserInterface;
+import util.ArrayUtils;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +22,19 @@ public class Main implements IUserInterface, IOrderHandler {
     private List<Product> menu = new ArrayList<>();
     private Order currentOrder = null;
     private Scanner scanner;
+    
+    // Tablice (wymaganie: 3 tablice)
+    private static final String[] PRODUCT_CATEGORIES = {"Napoje", "Jedzenie", "Desery"};
+    private static final PaymentMethod[] AVAILABLE_PAYMENT_METHODS = {
+        PaymentMethod.CASH, PaymentMethod.CARD, PaymentMethod.MOBILE, PaymentMethod.VOUCHER
+    };
+    private static final String[] ORDER_STATUS_INFO = {
+        "Nowe zamówienie - oczekuje na realizację",
+        "W trakcie przygotowania",
+        "Gotowe do odbioru",
+        "Zamówienie zakończone i odebrane",
+        "Zamówienie anulowane"
+    };
     
     public Main(Scanner scanner) {
         this.scanner = scanner;
@@ -90,6 +106,7 @@ public class Main implements IUserInterface, IOrderHandler {
             System.out.println("2. Zobacz menu kawiarni");
             System.out.println("3. Historia zamówień");
             System.out.println("4. Statystyki");
+            System.out.println("5. Demonstracja funkcjonalności");
             System.out.println("0. Wyjście");
             System.out.println("═══════════════════════════════════════════");
             System.out.print("Wybierz opcję: ");
@@ -106,6 +123,8 @@ public class Main implements IUserInterface, IOrderHandler {
                     showOrderHistory();
                 } else if (choice == 4) {
                     showStatistics();
+                } else if (choice == 5) {
+                    demonstrateFunctionality();
                 } else if (choice == 0) {
                     System.out.println("\nDziękujemy za skorzystanie z CafeControl!");
                     System.out.println("Do zobaczenia!\n");
@@ -118,16 +137,6 @@ public class Main implements IUserInterface, IOrderHandler {
                 scanner.nextLine(); // Czyści bufor
             }
         }
-    }
-    
-    /**
-     * Przetwarza wejście użytkownika
-     * Implementacja metody z interfejsu IUserInterface
-     */
-    @Override
-    public void processUserInput() {
-        // Metoda pomocnicza - główna logika w displayMainMenu
-        displayMainMenu();
     }
     
     /**
@@ -145,11 +154,7 @@ public class Main implements IUserInterface, IOrderHandler {
             System.out.print("Podaj imię i nazwisko klienta: ");
             String name = scanner.nextLine();
             
-            System.out.print("Podaj wiek klienta: ");
-            int age = scanner.nextInt();
-            scanner.nextLine();
-            
-            Customer customer = new Customer(name, age);
+            Customer customer = new Customer(name);
             currentOrder = new Order(customer);
             
             System.out.println("\n✓ Zamówienie utworzone dla: " + customer.getInfo());
@@ -274,28 +279,27 @@ public class Main implements IUserInterface, IOrderHandler {
             
             System.out.println("\n" + currentOrder.getOrderDetails());
             
-            // Wybór metody płatności
+            // Wybór metody płatności (wykorzystanie tablicy)
             System.out.println("\nWybierz metodę płatności:");
-            System.out.println("1. Gotówka");
-            System.out.println("2. Karta");
-            System.out.println("3. Płatność mobilna");
-            System.out.println("4. Bon");
+            for (int i = 0; i < AVAILABLE_PAYMENT_METHODS.length; i++) {
+                System.out.println((i + 1) + ". " + AVAILABLE_PAYMENT_METHODS[i].getDisplayName());
+            }
             System.out.print("Wybór: ");
             
             int paymentChoice = scanner.nextInt();
             scanner.nextLine();
             
-            PaymentMethod method;
-            if (paymentChoice == 1) {
-                method = PaymentMethod.CASH;
-            } else if (paymentChoice == 2) {
-                method = PaymentMethod.CARD;
-            } else if (paymentChoice == 3) {
-                method = PaymentMethod.MOBILE;
-            } else if (paymentChoice == 4) {
-                method = PaymentMethod.VOUCHER;
-            } else {
+            if (paymentChoice < 1 || paymentChoice > AVAILABLE_PAYMENT_METHODS.length) {
                 System.out.println("\n[BŁĄD] Nieprawidłowa metoda płatności");
+                return false;
+            }
+            
+            PaymentMethod method = AVAILABLE_PAYMENT_METHODS[paymentChoice - 1];
+            
+            // Użycie metody generycznej do weryfikacji
+            int methodIndex = ArrayUtils.findInArray(AVAILABLE_PAYMENT_METHODS, method);
+            if (methodIndex == -1) {
+                System.out.println("\n[BŁĄD] Metoda płatności nie jest dostępna");
                 return false;
             }
             
@@ -378,12 +382,47 @@ public class Main implements IUserInterface, IOrderHandler {
             return;
         }
         
-        for (Order order : orderHistory) {
-            System.out.println("\n" + order);
-        }
+        System.out.println("\nWybierz sposób sortowania:");
+        System.out.println("1. Po ID zamówienia (rosnąco)");
+        System.out.println("2. Po wartości zamówienia (rosnąco)");
+        System.out.print("Wybór: ");
         
-        System.out.println("\n────────────────────────────────────────────");
-        System.out.println("Łączna liczba zamówień: " + orderHistory.size());
+        try {
+            int sortChoice = scanner.nextInt();
+            scanner.nextLine();
+            
+            List<Order> sortedOrders = new ArrayList<>(orderHistory);
+            
+            if (sortChoice == 1) {
+                // Sortowanie za pomocą Comparable (compareTo)
+                Collections.sort(sortedOrders);
+                System.out.println("\n[Sortowanie: według ID zamówienia]");
+            } else if (sortChoice == 2) {
+                // Sortowanie za pomocą Comparator
+                Collections.sort(sortedOrders, new Comparator<Order>() {
+                    @Override
+                    public int compare(Order o1, Order o2) {
+                        return Double.compare(o1.calculateTotal(), o2.calculateTotal());
+                    }
+                });
+                System.out.println("\n[Sortowanie: według wartości zamówienia]");
+            } else {
+                // Domyślnie po ID
+                Collections.sort(sortedOrders);
+                System.out.println("\n[Sortowanie domyślne: według ID zamówienia]");
+            }
+            
+            for (Order order : sortedOrders) {
+                System.out.println("\n" + order);
+            }
+            
+            System.out.println("\n────────────────────────────────────────────");
+            System.out.println("Łączna liczba zamówień: " + orderHistory.size());
+            
+        } catch (Exception e) {
+            System.out.println("\n[BŁĄD] Nieprawidłowe dane");
+            scanner.nextLine();
+        }
     }
     
     /**
@@ -418,76 +457,88 @@ public class Main implements IUserInterface, IOrderHandler {
         System.out.println();
     }
     
-    /**
-     * Anuluje zamówienie po ID
-     * Implementacja metody z interfejsu IOrderHandler
-     * @param orderId ID zamówienia do anulowania
-     */
-    @Override
-    public void cancelOrder(int orderId) {
-        try {
-            for (Order order : orderHistory) {
-                if (order.getOrderId() == orderId) {
-                    order.cancel();
-                    System.out.println("\n✓ Zamówienie #" + orderId + " zostało anulowane");
-                    return;
-                }
-            }
-            System.out.println("\n[BŁĄD] Nie znaleziono zamówienia o ID: " + orderId);
-        } catch (InvalidOrderException e) {
-            System.out.println("\n[BŁĄD] " + e.getMessage());
-        }
-    }
-    
-    /**
-     * Wyświetla szczegóły zamówienia
-     * Implementacja metody z interfejsu IOrderHandler
-     * @param order zamówienie do wyświetlenia
-     */
-    @Override
-    public void displayOrderDetails(Order order) {
-        if (order == null) {
-            System.out.println("\n[BŁĄD] Zamówienie nie istnieje");
-            return;
-        }
-        System.out.println("\n" + order.getOrderDetails());
-    }
-    
-    /**
-     * Demonstracja polimorfizmu - różne osoby reprezentowane jako Person
-     * Przykład upcasting i downcasting
-     */
-    private void demonstratePolymorphism() {
-        // UPCASTING - Customer i Employee traktowane jako Person
-        Person person1 = new Customer("Jan Kowalski", 30); // Upcasting automatyczny
-        Person person2 = new Employee("Anna Nowak", 28, "Barista", 4500.0); // Upcasting automatyczny
-        
-        // Polimorfizm - wywołanie metody abstrakcyjnej zaimplementowanej różnie
-        System.out.println(person1.getInfo()); // Wywołuje Customer.getInfo()
-        System.out.println(person2.getInfo()); // Wywołuje Employee.getInfo()
-        
-        // DOWNCASTING - dostęp do specyficznych metod podklas
-        if (person1 instanceof Customer) {
-            Customer customer = (Customer) person1; // Downcasting z Person do Customer
-            System.out.println("ID klienta: " + customer.getCustomerId());
-        }
-        
-        if (person2 instanceof Employee) {
-            Employee employee = (Employee) person2; // Downcasting z Person do Employee
-            System.out.println("Stanowisko: " + employee.getPosition());
-            System.out.println("Pensja: " + employee.getSalary() + " zł");
-        }
-    }
-    
-    /**
-     * Formatuje cenę z dokładnością do 2 miejsc po przecinku
-     * @param price cena do sformatowania
-     * @return sformatowana cena jako String
-     */
     private String formatPrice(double price) {
-        long cents = Math.round(price * 100);
-        long zloty = cents / 100;
-        long grosze = cents % 100;
+        int cents = (int)(price * 100 + 0.5);
+        int zloty = cents / 100;
+        int grosze = cents % 100;
         return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
+    }
+    
+    /**
+     * Demonstracja funkcjonalności - tworzenie obiektów, użycie tablic i metod generycznych
+     */
+    private void demonstrateFunctionality() {
+        System.out.println("\n╔══════════════════════════════════════════╗");
+        System.out.println("║     DEMONSTRACJA FUNKCJONALNOŚCI         ║");
+        System.out.println("╚══════════════════════════════════════════╝");
+        
+        // Demonstracja tworzenia >= 2 obiektów każdej klasy
+        System.out.println("\n=== TWORZENIE OBIEKTÓW ===");
+        
+        // 2 obiekty Customer
+        Customer customer1 = new Customer("Jan Kowalski");
+        Customer customer2 = new Customer("Anna Nowak");
+        System.out.println("\nKlienci:");
+        System.out.println("  " + customer1.getInfo());
+        System.out.println("  " + customer2.getInfo());
+        
+        // 2 obiekty Employee
+        Employee emp1 = new Employee("Piotr Wiśniewski", "Barista", 4500.0);
+        Employee emp2 = new Employee("Maria Kowalska", "Manager", 6000.0);
+        System.out.println("\nPracownicy:");
+        System.out.println("  " + emp1.getInfo());
+        System.out.println("  " + emp2.getInfo());
+        
+        // 2 obiekty Drink
+        Drink drink1 = new Drink("Espresso", 8.50, true, 30);
+        Drink drink2 = new Drink("Latte", 12.00, true, 250);
+        System.out.println("\nNapoje:");
+        System.out.println("  " + drink1.getDescription());
+        System.out.println("  " + drink2.getDescription());
+        
+        // 2 obiekty Food
+        Food food1 = new Food("Croissant", 6.50, false, 70);
+        Food food2 = new Food("Sałatka grecka", 18.00, true, 250);
+        System.out.println("\nJedzenie:");
+        System.out.println("  " + food1.getDescription());
+        System.out.println("  " + food2.getDescription());
+        
+        // Demonstracja użycia tablic
+        System.out.println("\n=== UŻYCIE TABLIC ===");
+        
+        System.out.println("\nKategorie produktów:");
+        for (int i = 0; i < PRODUCT_CATEGORIES.length; i++) {
+            System.out.println("  " + (i + 1) + ". " + PRODUCT_CATEGORIES[i]);
+        }
+        
+        System.out.println("\nDostępne metody płatności:");
+        for (int i = 0; i < AVAILABLE_PAYMENT_METHODS.length; i++) {
+            System.out.println("  " + (i + 1) + ". " + AVAILABLE_PAYMENT_METHODS[i].getDisplayName());
+        }
+        
+        System.out.println("\nOpisy statusów zamówień:");
+        for (int i = 0; i < ORDER_STATUS_INFO.length; i++) {
+            System.out.println("  " + (i + 1) + ". " + ORDER_STATUS_INFO[i]);
+        }
+        
+        // Demonstracja metod generycznych
+        System.out.println("\n=== UŻYCIE METOD GENERYCZNYCH ===");
+        
+        PaymentMethod searchMethod = PaymentMethod.CARD;
+        int index = ArrayUtils.findInArray(AVAILABLE_PAYMENT_METHODS, searchMethod);
+        System.out.println("\nWyszukiwanie metody płatności 'CARD':");
+        System.out.println("  Znaleziono na indeksie: " + index);
+        System.out.println("  Metoda: " + AVAILABLE_PAYMENT_METHODS[index].getDisplayName());
+        
+        int count = ArrayUtils.countInArray(AVAILABLE_PAYMENT_METHODS, PaymentMethod.CASH);
+        System.out.println("\nLiczenie wystąpień 'CASH' w tablicy:");
+        System.out.println("  Liczba wystąpień: " + count);
+        
+        String searchCategory = "Napoje";
+        int categoryIndex = ArrayUtils.findInArray(PRODUCT_CATEGORIES, searchCategory);
+        System.out.println("\nWyszukiwanie kategorii 'Napoje':");
+        System.out.println("  Znaleziono na indeksie: " + categoryIndex);
+        
+        System.out.println("\n=== KONIEC DEMONSTRACJI ===\n");
     }
 }

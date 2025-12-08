@@ -94,9 +94,9 @@ public class OrderItem {
     }
     
     private String formatPrice(double price) {
-        long cents = Math.round(price * 100);
-        long zloty = cents / 100;
-        long grosze = cents % 100;
+        int cents = (int)(price * 100 + 0.5);
+        int zloty = cents / 100;
+        int grosze = cents % 100;
         return zloty + "." + (grosze < 10 ? "0" : "") + grosze;
     }
     

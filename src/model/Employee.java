@@ -17,12 +17,11 @@ public class Employee extends Person {
     /**
      * Konstruktor klasy Employee
      * @param name imię pracownika
-     * @param age wiek pracownika
      * @param position stanowisko pracownika
      * @param salary pensja pracownika
      */
-    public Employee(String name, int age, String position, double salary) {
-        super(name, age);
+    public Employee(String name, String position, double salary) {
+        super(name);
         this.employeeId = nextId++;
         this.position = position;
         this.salary = salary;
@@ -31,23 +30,21 @@ public class Employee extends Person {
     /**
      * Konstruktor bez pensji (domyślna 0)
      * @param name imię pracownika
-     * @param age wiek pracownika
      * @param position stanowisko pracownika
      */
-    public Employee(String name, int age, String position) {
-        this(name, age, position, 0.0);
+    public Employee(String name, String position) {
+        this(name, position, 0.0);
     }
 
     /**
      * Konstruktor z określonym ID (do testów)
      * @param name imię pracownika
-     * @param age wiek pracownika
      * @param position stanowisko pracownika
      * @param salary pensja pracownika
      * @param employeeId ID pracownika
      */
-    public Employee(String name, int age, String position, double salary, int employeeId) {
-        super(name, age);
+    public Employee(String name, String position, double salary, int employeeId) {
+        super(name);
         this.employeeId = employeeId;
         this.position = position;
         this.salary = salary;
@@ -81,22 +78,23 @@ public class Employee extends Person {
         this.salary = salary;
     }
 
-    /**
-     * Statyczna metoda zwracająca liczbę utworzonych pracowników
-     * @return liczba pracowników
-     */
-    public static int getTotalEmployees() {
-        return nextId - 1000;
-    }
-
     @Override
     public String getInfo() {
+
         return "Pracownik: " + name + " (ID: " + employeeId + "), stanowisko: " + position + ", pensja: " + salary + " zł, wiek: " + age;
+
     }
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", name=" + name + ", age=" + age + ", position=" + position + ", salary=" + salary + '}';
+
+
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", name='" + name + '\'' +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                '}';
     }
 
     @Override

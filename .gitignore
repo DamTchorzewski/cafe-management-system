@@ -28,3 +28,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+# Local working files (standards/scratch.md)
+/.scratch/

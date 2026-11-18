@@ -1,299 +1,121 @@
-# ☕ CafeControl – System obsługi kawiarni (Java)
+# CafeControl
 
-## 🎯 Opis projektu
-**CafeControl** to interaktywny system obsługi kawiarni napisany w języku **Java**, umożliwiający zarządzanie klientami, zamówieniami, menu, płatnościami oraz personelem.  
-Projekt realizowany w ramach zajęć **Programowanie w Javie**.
+## About
 
-System działa w konsoli (CLI) i komunikuje się z użytkownikiem poprzez dane wprowadzane z klawiatury za pomocą klasy `Scanner`.
+**CafeControl** is a console system for running a café, written in Java for the *Java Programming* course (a team
+project of four). It manages customers, employees, the menu, orders and payments from an interactive menu driven by
+the keyboard (`Scanner`).
 
----
+- **Orders.** Build an order from the menu (add and remove products), show it, finalise it or cancel it. Five order
+  statuses, validated order items and a custom `InvalidOrderException`.
+- **Menu of 16 products.** Drinks (temperature, volume) and food (weight, vegetarian flag) share the abstract
+  `Product`.
+- **Payments.** Cash, card, mobile and voucher (`PaymentMethod` enum).
+- **History and statistics.** The order history sorts by ID or by value (`Comparable` and `Comparator`); sales and
+  revenue statistics.
+- **Built to a course brief.** The project demonstrates what the course asked for: two inheritance hierarchies
+  (`Person` → `Customer`, `Employee`; `Product` → `Drink`, `Food`), abstract classes and methods, encapsulation,
+  `toString` / `equals` / `hashCode`, interfaces, enums, collections, a generic method, static fields and methods,
+  upcasting and downcasting. A "demonstration" entry of the menu walks through them.
 
-## 👥 Autorzy
+> **Status:** a finished course project. The interface texts are in Polish; there are no automated tests, the
+> functionality is exercised from the menu.
 
+## Team
 
-Zespół projektowy  – Programowanie w Javie
-- Eryk Możdżyński 68319
-- Maciej Stefaniuk 73679
-- Krzysztof Katana 71508
-- Damian Tchorzewski 72206
+Team project, *Java Programming*:
 
----
+| Member              | Work                                                                                                    |
+| ------------------- | ------------------------------------------------------------------------------------------------------- |
+| Damian Tchorzewski  | project structure (packages, classes, repository), `Main`; final tests and documentation                |
+| Krzysztof Katana    | model classes: `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`                             |
+| Maciej Stefaniuk    | orders and exceptions (`Order`, `OrderItem`, `Payment`, `OrderStatus`); user interaction layer (`Scanner`, menu, loops) |
+| Eryk Możdżyński     | `Comparable` and `Comparator`, the generic sorting method, enums, static fields and methods             |
 
-## ⚙️ Procedura uruchomienia
+## Tech stack
 
-### Wymagania wstępne
-- **Java JDK 21** lub nowsza
-- **IntelliJ IDEA** (lub inne IDE obsługujące Javę)
-- System operacyjny: Windows / Linux / macOS
+|        |                                                                                       |
+| ------ | ------------------------------------------------------------------------------------- |
+| Stack  | Java (JDK 21 or newer; the IntelliJ project is set to OpenJDK 25), standard library only |
+| UI     | console, keyboard input with `Scanner`                                                |
+| Tests  | none; a demonstration entry in the menu                                               |
+| IDE    | IntelliJ IDEA (`.idea/` and `CafeControl.iml` are in the repository)                  |
 
-### Instrukcja uruchomienia
-1. Sklonuj repozytorium lub pobierz projekt:
-   ```bash
-   git clone https://github.com/DamTchorzewski/CafeControl.git
-   ```
-2. Otwórz projekt w IntelliJ IDEA.
+The interface texts are Polish; identifiers, commits and branches are in English.
 
-3. Uruchom główną klasę `Main.java` (prawy przycisk myszy → Run 'Main.main()')
+## Screenshots
 
-4. System uruchomi się w konsoli z interaktywnym menu:
-   - Tworzenie nowych zamówień
-   - Przeglądanie menu kawiarni
-   - Historia zamówień
-   - Statystyki sprzedaży
-
-## 📊 Aktualny stan projektu
-
-### ✅ Zaimplementowane funkcjonalności:
-
-#### Moduł Model (`model/`)
-- ✅ **Person** (abstrakcyjna) - baza dla Customer i Employee
-- ✅ **Customer** - zarządzanie klientami z auto-ID
-- ✅ **Employee** - zarządzanie pracownikami z auto-ID
-- ✅ **Product** (abstrakcyjna) - baza dla Drink i Food
-- ✅ **Drink** - napoje z parametrami (temperatura, objętość)
-- ✅ **Food** - jedzenie z parametrami (waga, opcja wegetariańska)
-
-#### Moduł Zamówień (`order/`)
-- ✅ **Order** - kompleksowe zarządzanie zamówieniami + Comparable
-- ✅ **OrderItem** - pozycje zamówienia z walidacją
-- ✅ **Payment** - płatności z enum PaymentMethod (Gotówka, Karta, Mobile, Bon)
-- ✅ **OrderStatus** (enum) - statusy zamówień (5 stanów)
-
-#### Moduł Narzędzi (`util/`)
-- ✅ **ArrayUtils** - metody generyczne do operacji na tablicach
-
-#### Moduł Interfejsów (`interfaces/`)
-- ✅ **IUserInterface** - interfejs dla obsługi UI
-- ✅ **IOrderHandler** - interfejs dla zarządzania zamówieniami
-
-#### Moduł Wyjątków (`exception/`)
-- ✅ **InvalidOrderException** - własny wyjątek użytkownika
-
-#### Interfejs Użytkownika
-- ✅ **Main** - implementuje IUserInterface i IOrderHandler
-- ✅ Interaktywne menu z obsługą Scanner
-- ✅ Tworzenie i zarządzanie zamówieniami
-- ✅ Wyświetlanie menu kawiarni (16 produktów)
-- ✅ Historia zamówień z sortowaniem (Comparable i Comparator)
-- ✅ Statystyki sprzedaży i przychodów
-- ✅ Demonstracja polimorfizmu, upcasting i downcasting
-- ✅ Demonstracja funkcjonalności: tablice, metody generyczne, tworzenie obiektów
-
-
-## 🧩 Założenia i wymagania projektowe
-
-Projekt musi spełniać poniższe wymagania:
-
-Wymagania konieczne:
-- Interaktywność (wprowadzanie danych przez użytkownika – Scanner)
-- Każda klasa w osobnym pliku
-- Użycie tylko składni Javy poznanej na zajęciach
-- Projekt grupowy (4 osoby)
-
-Wymagania oceniane:
-- Min. 10 klas
-- Co najmniej 2 hierarchie dziedziczenia
-- 2 klasy abstrakcyjne i 2 metody abstrakcyjne
-- 3 pętle i 3 tablice
-- Zastosowanie upcastingu i downcastingu
-- 2 metody i 2 pola statyczne
-- Własny wyjątek użytkownika + obsługa wyjątków
-- Hermetyzacja (pola prywatne, gettery/settery)
-- Nadpisanie metod toString() (≥3), equals() i hashCode()
-- Interfejs użytkownika (definicja i implementacja)
-- Sortowanie obiektów (Comparable, Comparator)
-- Metoda generyczna
-- Kolekcje (np. ArrayList, HashMap)
-- Enum (np. typ napoju, status zamówienia)
-- Czytelne komunikaty w konsoli
-
-## 🧱 Struktura projektu (planowana)
-```bash
-CafeControl/
-│
-├── src/
-│   ├── Main.java
-│   ├── model/
-│   │   ├── Person.java
-│   │   ├── Customer.java
-│   │   ├── Employee.java
-│   │   ├── Product.java
-│   │   ├── Drink.java
-│   │   └── Food.java
-│   ├── order/
-│   │   ├── Order.java
-│   │   ├── OrderItem.java
-│   │   ├── Payment.java
-│   │   └── OrderStatus.java (enum)
-│   ├── interfaces/
-│   │   ├── IUserInterface.java
-│   │   └── IOrderHandler.java
-│   ├── util/
-│   │   └── ArrayUtils.java
-│   └── exception/
-│       └── InvalidOrderException.java
-│
-├── README.md
-└── .gitignore
+A console program; the main menu (texts are Polish):
 
 ```
-
-## 🚀 Plan prac
-
-### **Etap 1 – Struktura projektu (IntelliJ + repozytorium GitHub)** ✅
-- Utworzenie głównych pakietów projektu (`model`, `order`, `interfaces`, `util`, `exception`)
-- Stworzenie pustych klas i interfejsów
-- Inicjalizacja repozytorium GitHub
-- Wstępny commit z plikiem `README.md`
-- **Status:** UKOŃCZONY
-
----
-
-### **Etap 2 – Implementacja klas modelu** ✅
-- Implementacja klas:  
-  `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`
-- Dodanie konstruktorów, pól, metod i `toString()`
-- Wprowadzenie dziedziczenia i hermetyzacji
-- **Status:** UKOŃCZONY
-
----
-
-### **Etap 3 – Moduł zamówień i płatności** ✅
-- Utworzenie klas:  
-  `Order`, `OrderItem`, `Payment`, `OrderStatus` (enum)
-- Implementacja wyjątków użytkownika i obsługi błędów (`try-catch`)
-- Dodanie kolekcji (`ArrayList`) i relacji między obiektami
-- Implementacja enum `PaymentMethod` dla metod płatności
-- **Status:** UKOŃCZONY
-
----
-
-### **Etap 4 – Interfejs użytkownika i interakcja (Scanner)** ✅
-- Implementacja klas:  
-  `Main`, `MenuManager`
-- Wprowadzenie pętli i komunikatów w konsoli
-- Obsługa wejścia użytkownika (Scanner)
-- Logika tworzenia zamówień, dodawania produktów i realizacji płatności
-- Implementacja interfejsów IUserInterface i IOrderHandler
-- **Status:** UKOŃCZONY
-
----
-
-### **Etap 5 – Dodatkowe funkcje i sortowanie** ✅
-- Implementacja interfejsów `Comparable` i `Comparator`
-- Wykorzystanie sortowania obiektów na dwa różne sposoby
-- Dodanie `enum` (OrderStatus, PaymentMethod)
-- Implementacja metody generycznej do sortowania w SortUtils
-- Demonstracja upcasting/downcasting
-- **Status:** UKOŃCZONY
-
----
-
-### **Etap 6 – Testy i dokumentacja** ✅
-- ✅ Uzupełnienie i finalizacja `README.md`
-- ✅ Weryfikacja wszystkich wymagań projektowych
-- Testy funkcjonalne wszystkich modułów (TestDemo.java)
-- ✅ Dokumentacja i komentarze w kodzie
-- 
-
----
-
-### Uruchomienie głównej aplikacji
-```bash
-javac src/Main.java
-java -cp src Main
+1. Złóż nowe zamówienie
+2. Zobacz menu kawiarni
+3. Historia zamówień
+4. Statystyki
+5. Demonstracja funkcjonalności
+0. Wyjście
 ```
 
----
+While an order is open: add a product, remove a product (`2`), show the current order (`3`), finalise it (`4`) or
+cancel it (`0`). The history sorts by order ID or by order value, ascending.
 
-## 📝 Podsumowanie implementacji
+## Quick start
 
-### Wszystkie wymagania spełnione ✅
+```bash
+git clone https://github.com/DamTchorzewski/CafeControl.git
+cd CafeControl
+javac -d out src/Main.java
+java -cp out Main
+```
 
-| Wymaganie | Implementacja | Lokalizacja |
-|-----------|--------------|-------------|
-| Min. 10 klas | 13+ klas | Cały projekt |
-| 2 hierarchie dziedziczenia | Person→Customer/Employee<br>Product→Drink/Food | `model/` |
-| 2 klasy abstrakcyjne | Person, Product | `model/` |
-| 2 metody abstrakcyjne | getInfo(), getDescription() | Person, Product |
-| 3 pętle | while, for, foreach | Main.java |
-| 3 tablice | String[], PaymentMethod[], String[] | PRODUCT_CATEGORIES, AVAILABLE_PAYMENT_METHODS, ORDER_STATUS_INFO |
-| 3 kolekcje | ArrayList×3 | orderHistory, menu, items |
-| 2 metody statyczne | getTotalCustomers(), getTotalOrders(), getTotalPayments() | Customer, Order, Payment |
-| 2 pola statyczne | nextId, totalPayments | Wiele klas |
-| Własny wyjątek | InvalidOrderException | `exception/` |
-| Hermetyzacja | Wszystkie pola private/protected | Wszystkie klasy |
-| toString() ≥3 | We wszystkich klasach | Cały projekt |
-| equals() i hashCode() | We wszystkich klasach | Cały projekt |
-| Interfejsy | IUserInterface, IOrderHandler | `interfaces/` + Main |
-| Sortowanie | Comparable + Comparator | Order.compareTo() + showOrderHistory() |
-| Metoda generyczna | countInArray<T>() | ArrayUtils |
-| Upcasting/downcasting | W showMenu() | Main.java |
-| Tworzenie >= 2 obiektów | We wszystkich klasach | demonstrateFunctionality() |
-| Kolekcje | ArrayList | Cały projekt |
-| Enumy | OrderStatus, PaymentMethod | `order/` |
-| Interaktywność | Scanner | Main.java |
+Requirements: JDK 21 or newer. Or open the folder in IntelliJ IDEA and run `Main.main()`. `javac` compiles the
+other packages together with `Main`, which uses them.
 
----
+## Scripts
 
-## 👥 Podział zadań w zespole
+There is no build tool (no Maven or Gradle); the commands above compile and run the program.
 
-### **Damian Tchorzewski**
-- **Etap 1:** Struktura projektu (pakiety, klasy, repozytorium GitHub) ✅
-- - Klasy: `Main`
-    - Utworzenie pełnej struktury katalogów i pustych klas
-    - Inicjalizacja repozytorium i README.md
-- **Etap 6:** Testy końcowe i dokumentacja
-    - Weryfikacja działania wszystkich modułów
-    - Przygotowanie końcowego README.md i dokumentacji projektu
+| Command                          | What it does                    |
+| -------------------------------- | ------------------------------- |
+| `javac -d out src/Main.java`     | compile `Main` and what it uses |
+| `java -cp out Main`              | start the application           |
 
----
+## Configuration
 
-### **Krzysztof Katana**
-- **Etap 2:** Implementacja klas modelu ✅
-    - Klasy: `Person`, `Customer`, `Employee`, `Product`, `Drink`, `Food`
-    - Zastosowanie dziedziczenia i hermetyzacji
-    - Implementacja metod `toString()`, `equals()` i `hashCode()`
-    - Utworzenie przykładowych obiektów
-- **Etap 6:** Testy końcowe i dokumentacja
-    - Weryfikacja działania wszystkich modułów
-    - Przygotowanie końcowego README.md i dokumentacji projektu
+None: no environment variables, keys or files; the data (menu, customers, orders) lives in memory for the length of
+one run.
 
----
+## Structure
 
-### **Maciej Stefaniuk**
-- **Etap 3:** Logika zamówień i obsługa wyjątków ✅
-    - Klasy: `Order`, `OrderItem`, `Payment`
-    - Enum: `OrderStatus`
-    - Zastosowanie kolekcji do przechowywania pozycji zamówienia
-    - Obsługa błędów i wyjątek użytkownika `InvalidOrderException`
-- **Etap 6:** Testy końcowe i dokumentacja
-    - Weryfikacja działania wszystkich modułów
-    - Przygotowanie końcowego README.md i dokumentacji projektu
+```
+src/Main.java            ★ entry point: the menu, orders, history, statistics, the demonstration
+src/model/               Person (abstract), Customer, Employee, Product (abstract), Drink, Food
+src/order/               Order, OrderItem, Payment (with PaymentMethod), OrderStatus (enum)
+src/interfaces/          IUserInterface, IOrderHandler
+src/util/                ArrayUtils (generic method), SortUtils
+src/exception/           InvalidOrderException
+docs/                    documentation
+```
+
+## Branches and workflows
+
+Shared standards from `reops/standards`: `main` ≤ `develop` ≤ a working branch `<type>/<topic>`, fast-forward
+merges, Conventional Commits in English. The repository has no workflows.
+
+**Departures from the standards (and why):**
+
+- **Default branch is `master`**, not `main`: the repository was created that way; renaming it is a GitHub
+  setting for the owner. The local `develop` is cut from `master`.
+- **No banner or screenshots, no CI, no hooks:** a console project with no toolchain beyond the JDK.
+- **Interface texts in Polish:** the course and its readers are Polish.
+
+## Documentation
+
+| Document                                   | Covers                                              |
+| ------------------------------------------ | --------------------------------------------------- |
+| [docs/repository.md](docs/repository.md)   | GitHub description and topics                       |
+| [docs/requirements.md](docs/requirements.md) | the course brief and how each requirement is met  |
 
 ---
 
-### **Maciej Stefaniuk**
-- **Etap 4:** Warstwa interakcji z użytkownikiem ✅
-    - Obsługa wejścia z klawiatury (Scanner)
-    - Implementacja prostego menu, pętli i komunikatów w konsoli
-    - Integracja modułów: model + zamówienia
-- **Etap 6:** Testy końcowe i dokumentacja
-    - Weryfikacja działania wszystkich modułów
-    - Przygotowanie końcowego README.md i dokumentacji projektu
-
----
-
-### **Eryk Możdżyński**
-- **Etap 5:** Dodatkowe funkcjonalności i sortowanie ✅
-    - Zaimplementowanie `Comparable` i `Comparator`
-    - Dodanie metody generycznej do sortowania obiektów
-    - Zastosowanie `enum` w co najmniej jednej klasie
-    - Dodanie metod i pól statycznych w wybranych klasach
- - **Etap 6:** Testy końcowe i dokumentacja
-    - Weryfikacja działania wszystkich modułów
-    - Przygotowanie końcowego README.md i dokumentacji projektu
-
----
-
----
+Author: [Damian Tchorzewski](https://github.com/DamTchorzewski)

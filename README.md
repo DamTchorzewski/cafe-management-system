@@ -11,9 +11,8 @@
 
 ## About
 
-**CafeControl** is a console system for running a café, written in Java for the *Java Programming* course (a team
-project of four). It manages customers, employees, the menu, orders and payments from an interactive menu driven by
-the keyboard (`Scanner`).
+**CafeControl** is a console system for running a café, written in Java. It manages customers, employees, the menu,
+orders and payments from an interactive menu driven by the keyboard (`Scanner`).
 
 - **Orders.** Build an order from the menu (add and remove products), show it, finalise it or cancel it. Five order
   statuses, validated order items and a custom `InvalidOrderException`.
@@ -22,17 +21,17 @@ the keyboard (`Scanner`).
 - **Payments.** Cash, card, mobile and voucher (`PaymentMethod` enum).
 - **History and statistics.** The order history sorts by ID or by value (`Comparable` and `Comparator`); sales and
   revenue statistics.
-- **Built to a course brief.** The project demonstrates what the course asked for: two inheritance hierarchies
-  (`Person` → `Customer`, `Employee`; `Product` → `Drink`, `Food`), abstract classes and methods, encapsulation,
-  `toString` / `equals` / `hashCode`, interfaces, enums, collections, a generic method, static fields and methods,
-  upcasting and downcasting. A "demonstration" entry of the menu walks through them.
+- **Object-oriented design.** Two inheritance hierarchies (`Person` → `Customer`, `Employee`; `Product` →
+  `Drink`, `Food`), abstract classes and methods, encapsulation, `toString` / `equals` / `hashCode`, interfaces,
+  enums, collections, a generic method, static fields and methods, upcasting and downcasting. A "demonstration" entry
+  of the menu walks through them.
 
-> **Status:** a finished course project. The interface texts are in Polish; there are no automated tests, the
-> functionality is exercised from the menu.
+> **Status:** the interface texts are in Polish; there are no automated tests, the functionality is exercised from
+> the menu.
 
 ## Team
 
-Team project, *Java Programming*:
+The team of four:
 
 | Member              | Work                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -112,15 +111,15 @@ merges, Conventional Commits in English. The repository has no workflows.
 
 - **No "Open site" button, no phone strip, no CI, no hooks:** a console project with no site and no toolchain beyond the
   JDK. The images are terminal windows assembled from the source (see Screenshots) and the logo is a wordmark.
-- **No company branding in the footer:** a university team project, with several authors.
-- **Interface texts in Polish:** the course and its readers are Polish.
+- **No company branding in the footer:** the repository belongs to a team of authors.
+- **Interface texts in Polish:** the users of the program speak Polish.
 
 ## Documentation
 
 | Document                                   | Covers                                              |
 | ------------------------------------------ | --------------------------------------------------- |
 | [docs/repository.md](docs/repository.md)   | GitHub description and topics                       |
-| [docs/requirements.md](docs/requirements.md) | the course brief and how each requirement is met  |
+| [docs/requirements.md](docs/requirements.md) | the requirements and how each is met              |
 
 The README images (`docs/images/`) are regenerated with `tools/readme-images` (profile `cafe-management-system`), after
 `make-transcripts.mjs` has built the screens; the working shots go to `.scratch/`.

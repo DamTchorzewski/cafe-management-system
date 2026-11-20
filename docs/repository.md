@@ -21,18 +21,18 @@ Java console application for cafe management: customers, employees, menu, orders
 **Tagi (Topics):**
 
 ```text
-java console-application cafe-management-system order-management object-oriented-programming oop inheritance polymorphism interfaces generics enums intellij-idea university-project
+java console-application cafe-management-system order-management object-oriented-programming oop inheritance polymorphism interfaces generics enums intellij-idea
 ```
 
 Z GitHub CLI (`gh`) to samo jedną komendą:
 
 ```bash
-gh repo edit DamTchorzewski/cafe-management-system --description "Java console application for cafe management: customers, employees, menu, orders, payments and sales statistics." --add-topic java --add-topic console-application --add-topic cafe-management-system --add-topic order-management --add-topic object-oriented-programming --add-topic oop --add-topic inheritance --add-topic polymorphism --add-topic interfaces --add-topic generics --add-topic enums --add-topic intellij-idea --add-topic university-project
+gh repo edit DamTchorzewski/cafe-management-system --description "Java console application for cafe management: customers, employees, menu, orders, payments and sales statistics." --add-topic java --add-topic console-application --add-topic cafe-management-system --add-topic order-management --add-topic object-oriented-programming --add-topic oop --add-topic inheritance --add-topic polymorphism --add-topic interfaces --add-topic generics --add-topic enums --add-topic intellij-idea --add-topic
 ```
 
 ## Ustawienia do włączenia
 
-| Gdzie (GitHub)                                          | Co ustawić                                                                          |
+| Gdzie (GitHub) | Co ustawić |
 | ------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Settings → General → Default branch                     | `main` (gałąź `master` przemianowana 2026-11-20)                                    |
-| Settings → Branches (albo Rulesets) → `main`, `develop` | zablokuj force push i usuwanie gałęzi                                               |
+| Settings → General → Default branch | `main` (gałąź `master` przemianowana 2026-11-20) |
+| Settings → Branches (albo Rulesets) → `main`, `develop` | zablokuj force push i usuwanie gałęzi |

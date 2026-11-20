@@ -110,8 +110,6 @@ merges, Conventional Commits in English. The repository has no workflows.
 
 **Departures from the standards (and why):**
 
-- **Default branch is `master`**, not `main`: the repository was created that way; renaming it is a GitHub
-  setting for the owner. The local `develop` is cut from `master`.
 - **No "Open site" button, no phone strip, no CI, no hooks:** a console project with no site and no toolchain beyond the
   JDK. The images are terminal windows assembled from the source (see Screenshots) and the logo is a wordmark.
 - **No company branding in the footer:** a university team project, with several authors.

@@ -59,7 +59,7 @@ The interface texts are Polish; identifiers, commits and branches are in English
 </p>
 
 These screens are not a recording of a run: no JDK 21 was available to run the program, so
-`tools/projects/CafeControl/make-transcripts.mjs` assembles them from `src/Main.java` (the same strings, the 16
+`tools/projects/cafe-management-system/make-transcripts.mjs` assembles them from `src/Main.java` (the same strings, the 16
 products of `getDefaultMenu` and the formats of `getDescription`) and `tools/readme-images` draws them. The texts are
 Polish. What a user types (a customer's name, an order) is not shown, because it would be made up. While an order is
 open the program offers: add a product, remove a product (`2`), show the current order (`3`), finalise it (`4`) or
@@ -68,8 +68,8 @@ cancel it (`0`); the history sorts by order ID or by order value, ascending.
 ## Quick start
 
 ```bash
-git clone https://github.com/DamTchorzewski/CafeControl.git
-cd CafeControl
+git clone https://github.com/DamTchorzewski/cafe-management-system.git
+cd cafe-management-system
 javac -d out src/Main.java
 java -cp out Main
 ```
@@ -124,7 +124,7 @@ merges, Conventional Commits in English. The repository has no workflows.
 | [docs/repository.md](docs/repository.md)   | GitHub description and topics                       |
 | [docs/requirements.md](docs/requirements.md) | the course brief and how each requirement is met  |
 
-The README images (`docs/images/`) are regenerated with `tools/readme-images` (profile `CafeControl`), after
+The README images (`docs/images/`) are regenerated with `tools/readme-images` (profile `cafe-management-system`), after
 `make-transcripts.mjs` has built the screens; the working shots go to `.scratch/`.
 
 ---
